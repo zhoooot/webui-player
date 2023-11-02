@@ -2,6 +2,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+run this in the folder with your package.json first:
+
+npm install --save-dev @types/react@latest @types/react-dom@latest
+
 First, run the development server:
 
 ```bash
