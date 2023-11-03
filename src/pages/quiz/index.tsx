@@ -1,5 +1,6 @@
 import styles from './quiz-styles.module.css'
-import React, { useState } from 'react';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import React, { useState, useEffect } from 'react';
 
 interface QuizData {
   question: string;
@@ -22,8 +23,25 @@ const Quiz: React.FC<QuizProps> = ({ quizData }) => {
 
   return (
     <div className={styles['quiz-container']}>
+      <div className={styles['pie-timer']}>
+        <CountdownCircleTimer
+          isPlaying
+          duration={60}
+          size={50}
+          strokeWidth={10}
+          colors={'#FF0000'}
+        >
+          {({ remainingTime }) => (
+            <div className={styles['timer-content']}>
+              <div className={styles['timer-number']}>
+                {remainingTime}
+              </div>
+            </div>
+          )}
+        </CountdownCircleTimer>
+      </div>
       <h1>{question}</h1>
-      <ul>
+      <ul className={styles['answer-grid']}>
         {answers.map((answer, index) => (
           <li
             key={index}
@@ -33,7 +51,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData }) => {
               cursor: 'pointer',
             }}
           >
-            {answer}
+            {index}.  {answer}
           </li>
         ))}
       </ul>

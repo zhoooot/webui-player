@@ -8,7 +8,8 @@
   
   .quiz-container h1 {
     font-size: 24px;
-    margin-bottom: 10px;
+    margin-left: 19px;
+    margin-bottom: 7px;
   }
   
   .quiz-container ul {
@@ -17,8 +18,9 @@
   }
   
   .quiz-container li {
+    display: inline-table;
     padding: 5%;
-    margin: 5% 0;
+    margin: 3%;
     background-color: #fff;
     cursor: pointer;
     border: 1px solid #ccc;
@@ -28,3 +30,34 @@
   .quiz-container li:hover {
     background-color: #c79a9a;
   }
+
+  .answer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+
+  
+.pie-timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  flex-direction: row; /* Place the timer in the center vertically and horizontally */
+  width: 50px; /* Adjust the width as needed */
+  height: 50px; /* Adjust the height as needed */
+  border: 1px solid #033568; /* Border color for the timer container */
+  border-radius: 50%; /* Create a circular container */
+  margin-left: 20px; /* Add margin to separate the timer from the question content */
+}
+
+.timer-container {
+  position: absolute;
+  top: 10px; /* Adjust the top position as needed */
+  right: 10px; /* Adjust the right position as needed */
+}
+
+.pie-timer .react-countdown-circle-timer {
+  width: 100%;
+  height: 100%;
+}
