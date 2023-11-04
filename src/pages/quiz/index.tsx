@@ -10,13 +10,15 @@ interface QuizData {
 
 interface QuizProps {
   quizData: QuizData;
+  onAnswerSelect: () => void;
 }
 
-const Quiz: React.FC<QuizProps> = ({ quizData }) => {
+const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect  }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
   const handleAnswerClick = (index: number) => {
     setSelectedAnswer(index);
+    onAnswerSelect();
   };
 
   const { question, answers, correctAnswer } = quizData;
