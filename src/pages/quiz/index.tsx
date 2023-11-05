@@ -1,6 +1,6 @@
 import styles from './quiz-styles.module.css'
+import React, { useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import React, { useState, useEffect } from 'react';
 
 interface QuizData {
   question: string;
@@ -13,7 +13,7 @@ interface QuizProps {
   onAnswerSelect: () => void;
 }
 
-const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect  }) => {
+const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
   const handleAnswerClick = (index: number) => {
@@ -25,23 +25,6 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect  }) => {
 
   return (
     <div className={styles['quiz-container']}>
-      <div className={styles['pie-timer']}>
-        <CountdownCircleTimer
-          isPlaying
-          duration={60}
-          size={50}
-          strokeWidth={10}
-          colors={'#FF0000'}
-        >
-          {({ remainingTime }) => (
-            <div className={styles['timer-content']}>
-              <div className={styles['timer-number']}>
-                {remainingTime}
-              </div>
-            </div>
-          )}
-        </CountdownCircleTimer>
-      </div>
       <h1>{question}</h1>
       <ul className={styles['answer-grid']}>
         {answers.map((answer, index) => (
@@ -53,7 +36,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect  }) => {
               cursor: 'pointer',
             }}
           >
-            {index}.  {answer}
+            {index}. {answer}
           </li>
         ))}
       </ul>
@@ -64,4 +47,4 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect  }) => {
   );
 };
 
-export {Quiz};
+export { Quiz };
