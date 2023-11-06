@@ -16,12 +16,19 @@ interface QuizProps {
 const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
+  // dummy data for quizData
+
+  // Check if quizData is defined before destructuring its properties
+  if (!quizData) {
+    return null;
+  }
+
+  const { question, answers, correctAnswer } = quizData;
+
   const handleAnswerClick = (index: number) => {
     setSelectedAnswer(index);
     onAnswerSelect();
   };
-
-  const { question, answers, correctAnswer } = quizData;
 
   return (
     <div className={styles['quiz-container']}>
@@ -47,4 +54,4 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
   );
 };
 
-export { Quiz };
+export default Quiz;
