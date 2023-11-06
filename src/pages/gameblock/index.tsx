@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Quiz from './components/quiz';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import styles from './components/quiz-styles.module.css';
 import { Waiting } from './components/waiting';
 
 const quizData: string | any[] = [
@@ -35,7 +34,7 @@ const Quizzes = () => {
     <div>
       {currentQuestion < quizData.length && (
         <div key={currentQuestion}>
-          <div className={styles["timer-container"]}>
+          <div className="absolute top-10 left-10">
             <CountdownCircleTimer
               isPlaying
               duration={remainingTime}
