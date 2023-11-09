@@ -8,7 +8,7 @@ interface QuizData {
 
 interface QuizProps {
   quizData: QuizData;
-  onAnswerSelect: () => void;
+  onAnswerSelect: (selectedAnswer: number | null) => void;
 }
 
 const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
@@ -25,7 +25,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
 
   const handleAnswerClick = (index: number) => {
     setSelectedAnswer(index);
-    onAnswerSelect();
+    onAnswerSelect(index);
   };
 
   return (
