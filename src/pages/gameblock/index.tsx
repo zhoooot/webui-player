@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Quiz from './components/quiz';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { Waiting } from './components/waiting';
-import { useRouter } from 'next/router';
-import Answer from './components/answer';
+import { Answer } from './components/answer';
 
 const quizData: string | any[] = [
   {question: "What is the capital of France?",
@@ -72,8 +71,10 @@ const Quizzes = () => {
           </div>
 
           {displayAnswer ? <Answer {...{
+                    question: quizData[currentQuestion].question,
+                    answers: quizData[currentQuestion].answers, 
                     correctAnswer: quizData[currentQuestion].correctAnswer,
-                    isCorrect: selected && (quizData[currentQuestion].correctAnswer === quizResults),
+                    selectedAnswer: quizResults,
                   }} /> : (selected ? <Waiting/> : <Quiz quizData={quizData[currentQuestion]} onAnswerSelect={handleAnswerSelect}/>)}
         </div>
       )}
