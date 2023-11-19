@@ -11,7 +11,6 @@ const Lobby = () => {
 
   const handleQuit = () => {
     // Handle the action when the "Quit" button is pressed
-    // For example, you can go back to the previous page
     router.back();
   };
 
