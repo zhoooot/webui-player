@@ -3,7 +3,6 @@ import Quiz from './components/quiz_player';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { Waiting } from './components/waiting';
 import Answer from './components/answer';
-import Countdown from 'react-countdown';
 import TimeBar from './components/timeBar';
 
 const quizData = [
@@ -59,7 +58,10 @@ const Quizzes = () => {
         <div key={currentQuestion}>
           {Phase === 0 && (
             <div className='flex flex-col w-screen h-screen overflow-hidden'>
-              <TimeBar duration={5000} />
+              <TimeBar duration={5000} onFinished={() => {
+                  setPhase(1);
+                }}/>
+              <b>{quizData[currentQuestion].question}</b>
             </div>
           )}
 

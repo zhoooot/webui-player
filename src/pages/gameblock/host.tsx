@@ -22,7 +22,7 @@ const quizData: string | any[] = [
 
 const Quizzes_Host = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [remainingTime, setRemainingTime] = useState(5);
+  const [remainingTime, setRemainingTime] = useState(15);
   const [selected, setSelected] = useState(false);
   const [displayAnswer, setDisplayAnswer] = useState(false);
   const [timerKey, setTimerKey] = useState(0); // Add a timer key state
