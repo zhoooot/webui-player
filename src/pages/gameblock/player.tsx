@@ -33,7 +33,7 @@ const quizData = [
   },
 ];
 
-const Quizzes = () => {
+const Quizzes_Player = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [remainingTime, setRemainingTime] = useState(5);
   const [selected, setSelected] = useState(false);
@@ -56,16 +56,17 @@ const Quizzes = () => {
     <div>
       {currentQuestion < quizData.length && (
         <div key={currentQuestion}>
+          {/*Phase 1*/}
           {Phase === 0 && (
-            <div className='flex flex-col w-screen h-screen overflow-hidden'>
+            <div className='flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gray-200'>
+              <b>{quizData[currentQuestion].question}</b>
               <TimeBar duration={5000} onFinished={() => {
                   setPhase(1);
                 }}/>
-              <b>{quizData[currentQuestion].question}</b>
             </div>
           )}
 
-
+          {/*Phase 2*/}
           {Phase === 1 && (
             <>
             <div className="absolute top-10 left-10">
@@ -95,7 +96,7 @@ const Quizzes = () => {
           </>
           )}
 
-
+          {/*Phase 3*/}
           {Phase === 2 && (
             <div>
               <div className="absolute top-10 left-10">
@@ -130,4 +131,4 @@ const Quizzes = () => {
   );
 };
 
-export default Quizzes;
+export default Quizzes_Player;

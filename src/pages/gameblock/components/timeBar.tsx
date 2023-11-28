@@ -8,7 +8,7 @@ interface TimeBarProps {
 
 const TimeBar: React.FC<TimeBarProps> = ({ duration, onFinished }) => {
   return (
-    <div className='flex flex-col w-screen h-screen overflow-hidden'>
+    <div className='flex flex-col overflow-hidden'>
       <Countdown
         date={Date.now() + duration}
         intervalDelay={1} // Update every millisecond
@@ -22,7 +22,7 @@ const TimeBar: React.FC<TimeBarProps> = ({ duration, onFinished }) => {
 
           return (
             <div>
-              <div className="bg-blue-500 h-10 absolute top-50 left-40 w-4/5">
+              <div className="bg-blue-500 h-2 absolute bottom-5 left-20 w-5/6">
                 <div
                   className="h-full bg-yellow-500 absolute"
                   style={{ width: `${progress}%` }}
