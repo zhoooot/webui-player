@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Quiz from './components/quiz_player';
+import Quiz from './components/mini_components/quiz_player';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import { Waiting } from './components/waiting';
-import Answer from './components/answer';
-import TimeBar from './components/timeBar';
+import { Waiting } from './components/mini_components/waiting';
+import TimeBar from './components/mini_components/timeBar';
+import Answer from './components/mini_components/quiz_player_result';
 
 const quizData = [
   {

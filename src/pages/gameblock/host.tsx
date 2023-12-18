@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Quiz from './components/quiz_host';
-import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import TimeBar from './components/mini_components/timeBar';
+import Phase2 from './components/phase_host_2';
+import Phase3 from './components/phase_host_3';
 
 const quizData: string | any[] = [
   {question: "What is the capital of France?",
@@ -22,53 +23,48 @@ const quizData: string | any[] = [
 
 const Quizzes_Host = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [remainingTime, setRemainingTime] = useState(15);
-  const [selected, setSelected] = useState(false);
-  const [displayAnswer, setDisplayAnswer] = useState(false);
-  const [timerKey, setTimerKey] = useState(0); // Add a timer key state
-  const [quizResults, setQuizResults] = useState<number | null>(null);
-
-  const handleAnswerSelect = (selectedAnswer: number | null) => {
-    setSelected(true);
-    setQuizResults(selectedAnswer);
-  };
-
-  useEffect(() => {
-    if (displayAnswer) {
-      setTimerKey(prevKey => prevKey + 1); // Change the timer key to reset the timer
-    }
-  }, [displayAnswer]);
+  const [Phase, setPhase] = useState(0);
 
   return (
     <div>
       {currentQuestion < quizData.length && (
         <div key={currentQuestion}>
-          <div className="absolute top-10 left-10">
-            <CountdownCircleTimer
-              key={timerKey} // Set the timer key to reset the timer
-              isPlaying
-              duration={remainingTime}
-              size={50}
-              strokeWidth={10}
-              colors={'#A30000'}
-              onComplete={() => {
-                if (displayAnswer)
-                {
-                  setSelected(false);
-                  setDisplayAnswer(false);
-                  setCurrentQuestion(currentQuestion + 1);
-                }
-                else
-                {
-                  setDisplayAnswer(true);
-                }
-              }}
-            >
-              {({ remainingTime }) => remainingTime}
-            </CountdownCircleTimer>
-          </div>
+          {/*Phase 1*/}
+          {Phase === 0 && (
+            <div className='flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gray-200'>
+              <b>{quizData[currentQuestion].question}</b>
+              <TimeBar duration={5000} onFinished={() => {
+                  setPhase(1);
+                }}/>
+            </div>
+          )}
 
-          <Quiz quizData={quizData[currentQuestion]}/>
+          {/*Phase 2*/}
+          {Phase === 1 && (
+            <>
+            <Phase2
+              onComplete={() => {
+                setPhase(2);
+              }}
+              duration={5}
+              quizData={quizData[currentQuestion]}/>
+          </>
+          )}
+
+          {/*Phase 3*/}
+          {Phase === 2 && (
+            <div>
+              <Phase3
+                onComplete={() => {
+                  setPhase(0);
+                  setCurrentQuestion(currentQuestion + 1);
+                }}
+                duration={5}
+                quizData={quizData[currentQuestion]}
+                quizResult={[4,3,2,5]}/>
+            </div>
+            
+          )}
         </div>
       )}
     </div>

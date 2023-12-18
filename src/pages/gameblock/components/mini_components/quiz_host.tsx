@@ -19,7 +19,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData }) => {
   const { question, answers, correctAnswer } = quizData;
 
   return (
-    <div className="absolute bottom-1 border-2 w-screen border-gray-600 p-7 rounded-lg bg-gray-200 quiz-container">
+    <div className="absolute bottom-1 border-2 w-screen border-gray-600 p-7 rounded-lg bg-gray-200">
       <h1 className="ml-4 mt-2">{question}</h1>
       <ul className="grid grid-cols-2 gap-4 answer-grid">
         {answers.map((answer, index) => {
