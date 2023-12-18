@@ -23,6 +23,8 @@ const PinInput: React.FC<PinInputProps> = ({ onSubmit }) => {
     alignItems: 'center',
     padding:'8px',
     backgroundColor:'white',
+    borderRadius:'5px',
+    marginTop:'10px',
   };
 
   const inputStyle: React.CSSProperties = {
@@ -32,7 +34,8 @@ const PinInput: React.FC<PinInputProps> = ({ onSubmit }) => {
     fontSize: '16px',
     margin: '5px 0',
     width: '100%',
-    outlineColor:'black'
+    outlineColor:'black',
+    color: 'black',
   };
 
   const buttonStyle: React.CSSProperties = {
@@ -44,6 +47,8 @@ const PinInput: React.FC<PinInputProps> = ({ onSubmit }) => {
     fontSize: '16px',
     width: '100%',
     cursor: 'pointer',
+    marginTop: '10px',
+    fontWeight: 'bold',
   };
 
   return (
