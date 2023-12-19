@@ -5,7 +5,7 @@ interface HostResultProps {
 }
 
 const HostResult: React.FC<HostResultProps> = ({ Correct }) => {
-    const colors = ['red', 'blue', 'yellow', 'green']
+    const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500']
 
   return (
     <div className='absolute top-48 left-0'>
@@ -13,7 +13,7 @@ const HostResult: React.FC<HostResultProps> = ({ Correct }) => {
         {Correct.map((number, index) => (
             <div
             key={index}
-            className={`w-1/6 m-1 bg-${colors[index]}-500 p-4 items-center justify-center flex flex-col`}
+            className={`w-1/6 m-1 ${colors[index]} p-4 items-center justify-center flex flex-col`}
             style={{height: `${number * 10}px` }}
             >
             {number}

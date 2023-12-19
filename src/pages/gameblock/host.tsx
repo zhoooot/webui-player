@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TimeBar from './components/mini_components/timeBar';
 import Phase2 from './components/phase_host_2';
 import Phase3 from './components/phase_host_3';
+import Next from './components/mini_components/next_button';
 
 const quizData: string | any[] = [
   {question: "What is the capital of France?",
@@ -36,6 +37,9 @@ const Quizzes_Host = () => {
               <TimeBar duration={5000} onFinished={() => {
                   setPhase(1);
                 }}/>
+              <Next onClick={() => {
+                  setPhase(1);
+                }}/>
             </div>
           )}
 
@@ -44,6 +48,9 @@ const Quizzes_Host = () => {
             <>
             <Phase2
               onComplete={() => {
+                setPhase(2);
+              }}
+              next={() => {
                 setPhase(2);
               }}
               duration={5}
@@ -56,6 +63,10 @@ const Quizzes_Host = () => {
             <div>
               <Phase3
                 onComplete={() => {
+                  setPhase(0);
+                  setCurrentQuestion(currentQuestion + 1);
+                }}
+                next={() => {
                   setPhase(0);
                   setCurrentQuestion(currentQuestion + 1);
                 }}

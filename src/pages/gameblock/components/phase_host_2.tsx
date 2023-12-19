@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import {CountdownCircleTimer} from 'react-countdown-circle-timer';
 import Quiz from './mini_components/quiz_host';
+import Next from './mini_components/next_button';
 
 interface QuizData {
   question: string;
@@ -12,11 +13,12 @@ interface QuizData {
 
 interface Phase2Props {
     onComplete: () => void;
+    next: () => void;
     duration: number;
     quizData: QuizData; // Use the imported QuizData type
 }
 
-const Phase2: React.FC<Phase2Props> = ({ onComplete, duration, quizData }) => {
+const Phase2: React.FC<Phase2Props> = ({ onComplete, next, duration, quizData }) => {
   const [selected, setSelected] = useState(false);
 
   return (
@@ -36,7 +38,7 @@ const Phase2: React.FC<Phase2Props> = ({ onComplete, duration, quizData }) => {
           {({ remainingTime }) => remainingTime}
         </CountdownCircleTimer>
       </div>
-
+      <Next onClick={next}></Next>
       <Quiz quizData={quizData} />
     </>
   );
