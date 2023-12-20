@@ -3,7 +3,8 @@ import React from "react";
 import PinInput from "./components/pinInput";
 import { io } from "socket.io-client";
 import { ClientPlayer } from "@/logic/client-player";
-
+import Image from 'next/image';
+import Image0 from '/public/images/app_logo.svg';
 const InputPinPage: React.FC = () => {
   const handlePinSubmit = (pin: string) => {
     // Handle the submitted PIN (e.g., check it against the correct PIN).
@@ -15,12 +16,12 @@ const InputPinPage: React.FC = () => {
   };
 
   return (
-    <div className="w-screen h-screen">
-      <div className="w-full h-full flex flex-col justify-center align-middle">
+    <div className="w-screen h-screen bg-purple-600 relative">
+      <div className="w-auto h-auto flex flex-col justify-center top-0 left-0 right-0 bottom-0 absolute mb-20">
         <div className="self-center">
-          <h1>Input the Game PIN</h1>
-        </div>
-        <div className="self-center lg:w-2/12 md:w-4/12 xs:w-10/12">
+          <Image src={Image0} alt="Picture of the author" />
+          </div>
+        <div className="self-center h-10 w-3/12">
           <PinInput onSubmit={handlePinSubmit} />
         </div>
       </div>
