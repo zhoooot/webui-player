@@ -3,6 +3,7 @@ import TimeBar from './components/mini_components/timeBar';
 import Phase2 from './components/phase_host_2';
 import Phase3 from './components/phase_host_3';
 import Next from './components/mini_components/next_button';
+import Rank from './components/mini_components/current_rank';
 
 const quizData: string | any[] = [
   {question: "What is the capital of France?",
@@ -20,6 +21,25 @@ const quizData: string | any[] = [
   {question: "What is the capital of UK?",
   answers: ["London", "Paris", "Berlin", "Madrid"],
   correctAnswer: 1,}
+];
+
+const list: string | any[] = [
+  {name: "a", score: 1},
+  {name: "b", score: 2},
+  {name: "c", score: 3},
+  {name: "d", score: 4},
+  {name: "e", score: 5},
+  {name: "f", score: 6},
+  {name: "g", score: 7},
+  {name: "h", score: 8},
+  {name: "i", score: 9},
+  {name: "j", score: 10},
+  {name: "k", score: 11},
+  {name: "l", score: 12},
+  {name: "m", score: 13},
+  {name: "n", score: 14},
+  {name: "o", score: 15},
+  {name: "p", score: 16},
 ];
 
 const Quizzes_Host = () => {
@@ -76,6 +96,8 @@ const Quizzes_Host = () => {
             </div>
             
           )}
+
+          <Rank list={list}></Rank>
         </div>
       )}
     </div>
