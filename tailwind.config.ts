@@ -13,8 +13,15 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      transitionDelay: {
+        '0': '0ms',
+        '1000': '1000ms',
+        '2000': '2000ms',
+        '3000': '3000ms',
+      },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }
+
 export default config
