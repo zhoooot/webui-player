@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import { ClientPlayer } from "@/logic/client-player";
 import Image from 'next/image';
 import Image0 from '/public/images/app_logo.svg';
+import router from "next/router";
 const InputPinPage: React.FC = () => {
   const handlePinSubmit = (pin: string) => {
     // Handle the submitted PIN (e.g., check it against the correct PIN).
@@ -13,6 +14,8 @@ const InputPinPage: React.FC = () => {
     // Add your game logic here.
     const client = new ClientPlayer();
     client.sendMessage(pin);
+    // when submit button is onclick, move to page lobby
+    router.push('../join/nameInput');
   };
 
   return (

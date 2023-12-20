@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import { ClientPlayer } from "@/logic/client-player";
 import Image from 'next/image';
 import Image0 from '/public/images/app_logo.svg';
+import router from "next/router";
 const InputNamePage: React.FC = () => {
   const handlePinSubmit = (pin: string) => {
     // Handle the submitted PIN (e.g., check it against the correct PIN).
@@ -13,13 +14,15 @@ const InputNamePage: React.FC = () => {
     // Add your game logic here.
     const client = new ClientPlayer();
     client.sendMessage(pin);
+    router.push('../lobby');
+
   };
 
   return (
     <div className="w-screen h-screen bg-purple-600 relative">
       <div className="w-auto h-auto flex flex-col justify-center top-0 left-0 right-0 bottom-0 absolute mb-20">
         <div className="self-center">
-          <Image src={Image0} alt="Picture of the author" />
+          <Image src={Image0} alt="App logo" />
           </div>
         <div className="self-center h-10 w-3/12">
           <NameInput onSubmit={handlePinSubmit} />
