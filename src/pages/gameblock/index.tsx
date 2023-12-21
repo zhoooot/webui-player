@@ -5,6 +5,7 @@ import Loading from './components/mini_components/waiting';
 import TimeBar from './components/mini_components/timeBar';
 import Answer from './components/mini_components/quiz_player_result';
 import PlayerBar from './components/mini_components/playerbar';
+import router from 'next/router';
 
 const quizData = [
   {
@@ -22,16 +23,7 @@ const quizData = [
     answers: ["Berlin", "Paris", "London", "Madrid"],
     correctAnswer: 3,
   },
-  {
-    question: "What is the capital of Spain?",
-    answers: ["Madrid", "Paris", "London", "Berlin"],
-    correctAnswer: 0,
-  },
-  {
-    question: "What is the capital of UK?",
-    answers: ["London", "Paris", "Berlin", "Madrid"],
-    correctAnswer: 1,
-  },
+  
 ];
 
 const Quizzes_Player = () => {
@@ -53,6 +45,12 @@ const Quizzes_Player = () => {
     }
   }, [Phase]);
 
+
+  useEffect(() => {
+    if (currentQuestion >= quizData.length) {
+      router.push('/gameover'); // replace '/new-route' with the path you want to navigate to
+    }
+  }, [currentQuestion]);
   return (
     <div>
       {currentQuestion < quizData.length && (
@@ -121,6 +119,7 @@ const Quizzes_Player = () => {
                   strokeWidth={10}
                   colors={'#A30000'}
                   onComplete={() => {
+                    setCurrentQuestion(currentQuestion+1);
                     setSelected(false);
                     setPhase(0);
                   }}
@@ -144,6 +143,7 @@ const Quizzes_Player = () => {
           )}
         </div>
       )}
+                  
     </div>
   );
 };
