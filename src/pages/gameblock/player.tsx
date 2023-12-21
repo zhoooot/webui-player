@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Quiz from './components/mini_components/quiz_player';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import { Waiting } from './components/mini_components/waiting';
+import Loading from './components/mini_components/waiting';
 import TimeBar from './components/mini_components/timeBar';
 import Answer from './components/mini_components/quiz_player_result';
+import PlayerBar from './components/mini_components/playerbar';
 
 const quizData = [
   {
@@ -58,74 +59,88 @@ const Quizzes_Player = () => {
         <div key={currentQuestion}>
           {/*Phase 1*/}
           {Phase === 0 && (
-            <div className='flex flex-col items-center justify-center w-screen h-screen  bg-gray-200'>
-              <div className='self-center font-bold text-8xl'>
-              {quizData[currentQuestion].question}
+            <div className='flex flex-col items-center justify-center w-screen h-screen bg-gray-200'>
+              <div className='font-bold text-4xl text-center h-full align-middle flex items-center'>
+                {quizData[currentQuestion].question}
+              </div>
+              <div className='self-end w-full h-auto'>
+                <div className='col items-center justify-center'>
+                  <TimeBar duration={5000} onFinished={() => {
+                    setPhase(1);
+                  }} />
+                  <PlayerBar point={2222} name="Player 1" />
                 </div>
-              <TimeBar duration={5000} onFinished={() => {
-                  setPhase(1);
-                }}/>
+              </div>
+
             </div>
           )}
 
           {/*Phase 2*/}
           {Phase === 1 && (
             <>
-            <div className="absolute top-10 left-10">
-              <CountdownCircleTimer
-                key={timerKey}
-                isPlaying
-                duration={remainingTime}
-                size={50}
-                strokeWidth={10}
-                colors={'#A30000'}
-                onComplete={() => {
-                  setSelected(true);
-                  setPhase(2);
-                }}
-              >
-                {({ remainingTime }) => remainingTime}
-              </CountdownCircleTimer>
-            </div>
-            {selected ? (
-              <Waiting />
-            ) : (
-              <Quiz
-                quizData={quizData[currentQuestion]}
-                onAnswerSelect={handleAnswerSelect}
-              />
-            )}
-          </>
+              <div className="absolute top-10 left-10">
+                <CountdownCircleTimer
+                  key={timerKey}
+                  isPlaying
+                  duration={remainingTime}
+                  size={50}
+                  strokeWidth={10}
+                  colors={'#A30000'}
+                  onComplete={() => {
+                    setSelected(true);
+                    setPhase(2);
+                  }}
+                >
+                  {({ remainingTime }) => remainingTime}
+                </CountdownCircleTimer>
+              </div>
+
+              {selected ? (
+                <Loading point={2222} name={'shut the fuk up'} index={currentQuestion} />
+
+              ) :
+                (
+                  <Quiz
+                    quizData={quizData[currentQuestion]}
+                    onAnswerSelect={handleAnswerSelect}
+                  />
+                )
+              }
+            </>
           )}
 
           {/*Phase 3*/}
           {Phase === 2 && (
             <div>
               <div className="absolute top-10 left-10">
-              <CountdownCircleTimer
-                key={timerKey}
-                isPlaying
-                duration={remainingTime}
-                size={50}
-                strokeWidth={10}
-                colors={'#A30000'}
-                onComplete={() => {
-                  setSelected(false);
-                  setPhase(0);
-                }}
-              >
-                {({ remainingTime }) => remainingTime}
-              </CountdownCircleTimer>
-            </div>
+                <CountdownCircleTimer
+                  key={timerKey}
+                  isPlaying
+                  duration={remainingTime}
+                  size={50}
+                  strokeWidth={10}
+                  colors={'#A30000'}
+                  onComplete={() => {
+                    setSelected(false);
+                    setPhase(0);
+                  }}
+                >
+                  {({ remainingTime }) => remainingTime}
+                </CountdownCircleTimer>
+              </div>
               <Answer
                 correctAnswer={quizData[currentQuestion].correctAnswer}
                 isCorrect={
-                selected &&
-                quizData[currentQuestion].correctAnswer === quizResults
-              }
-            />
+                  selected &&
+                  quizData[currentQuestion].correctAnswer === quizResults
+
+                }
+                plusPoint={(selected &&
+                  quizData[currentQuestion].correctAnswer === quizResults
+                ) ? 100 : 0}
+              />
             </div>
-            
+
           )}
         </div>
       )}

@@ -64,14 +64,14 @@ const Quizzes_Player = () => {
                 {quizData[currentQuestion].question}
               </div>
               <div className='self-end w-full h-auto'>
-               <div className='col items-center justify-center'>
-               <TimeBar duration={5000} onFinished={() => {
-                setPhase(1);
-                }} />
-                <PlayerBar point={2222} name="Player 1"/>
+                <div className='col items-center justify-center'>
+                  <TimeBar duration={5000} onFinished={() => {
+                    setPhase(1);
+                  }} />
+                  <PlayerBar point={2222} name="Player 1" />
                 </div>
               </div>
-              
+
             </div>
           )}
 
@@ -94,14 +94,18 @@ const Quizzes_Player = () => {
                   {({ remainingTime }) => remainingTime}
                 </CountdownCircleTimer>
               </div>
+
               {selected ? (
-                <Loading point={2222} name={'shut the fuk up'} index={currentQuestion}  />
-              ) : (
-                <Quiz
-                  quizData={quizData[currentQuestion]}
-                  onAnswerSelect={handleAnswerSelect}
-                />
-              )}
+                <Loading point={2222} name={'shut the fuk up'} index={currentQuestion} />
+
+              ) :
+                (
+                  <Quiz
+                    quizData={quizData[currentQuestion]}
+                    onAnswerSelect={handleAnswerSelect}
+                  />
+                )
+              }
             </>
           )}
 
@@ -129,7 +133,11 @@ const Quizzes_Player = () => {
                 isCorrect={
                   selected &&
                   quizData[currentQuestion].correctAnswer === quizResults
+
                 }
+                plusPoint={(selected &&
+                  quizData[currentQuestion].correctAnswer === quizResults
+                ) ? 100 : 0}
               />
             </div>
 

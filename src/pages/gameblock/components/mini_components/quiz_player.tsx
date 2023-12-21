@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+import PlayerBar from './playerbar';
+import Image from 'next/image';
+import Svg1 from '/public/images/answers/triangle.svg';
+import Svg2 from '/public/images/answers/diamond.svg';
+import Svg3 from '/public/images/answers/circle.svg';
+import Svg4 from '/public/images/answers/square.svg';
+import QuizTypes from 'public/images/quiz_types.svg';
 
 interface QuizData {
   question: string;
@@ -10,11 +17,13 @@ interface QuizProps {
   quizData: QuizData;
   onAnswerSelect: (selectedAnswer: number | null) => void;
 }
+const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500']
 
 const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
-  // dummy data for quizData
+  // Array of SVGs
+  const svgs = [Svg1, Svg2, Svg3, Svg4];
 
   // Check if quizData is defined before destructuring its properties
   if (!quizData) {
@@ -22,7 +31,6 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
   }
 
   const { question, answers, correctAnswer } = quizData;
-  const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500']
 
   const handleAnswerClick = (index: number) => {
     setSelectedAnswer(index);
@@ -30,26 +38,39 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
   };
 
   return (
-    <div className="absolute bottom-1 border-2 w-screen border-gray-600 p-7 rounded-lg bg-gray-200 quiz-container">
-      <h1 className="ml-4 mt-2">{question}</h1>
-      <ul className="grid grid-cols-2 gap-4 answer-grid">
-        {answers.map((answer, index) => (
-          <li
-            key={index}
-            onClick={() => handleAnswerClick(index)}
-            style={{
-              cursor: 'pointer',
-            }}
-            className={`p-6 m-4 border border-gray-300 rounded-md cursor-pointer ${colors[index]} opacity-8 hover:opacity-100`}
-          >
-            {index}. {answer}
-          </li>
-        ))}
-      </ul>
-      {selectedAnswer !== null && selectedAnswer === correctAnswer && (
-        <p>Correct!</p>
-      )}
+    <div className="flex flex-col w-screen h-screen bg-gray-200">
+      <div className='absolute top-0 left-0 right-0 m-2 '>
+        <div className='flex flex-col self-center items-center h-full justify-center '>
+          <Image src={QuizTypes} alt="Quiz Types" width={200} height={200} className='ml-2 mt-2 items-center' />
+        </div>
+
+      </div>
+      <div className='absolute bottom-0 left-0'>
+      <div className="w-screen p-2 rounded-lg quiz-container">
+        <div className='text-center text-xl font-bold m-2 pl-4 pr-4 pt-2 pb-2 bg-white'>Question: {question}</div>
+        <ul className="grid grid-cols-2 answer-grid gap-2">
+          {answers.map((answer, index) => (
+            <li
+              key={index}
+              onClick={() => handleAnswerClick(index)}
+              style={{ cursor: 'pointer' }}
+              className={`p-6 m-1  text-2xl font-bold text-white ${colors[index]} cursor-pointer opacity-8 hover:opacity-100`}
+            >
+              <div className='flex flex-row'>
+                <Image src={svgs[index]} alt="SVG Icon" width={30} height={30} className='mr-2' />
+                {answer}
+              </div>
+            </li>
+          ))}
+        </ul>
+        
+      </div>
+      <div className='bg-white'>
+        <PlayerBar name="Player 1" point={2222} />
+      </div>
+      </div>
     </div>
+
   );
 };
 

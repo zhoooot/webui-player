@@ -18,7 +18,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ point, name}) => {
             </div>
             <div className='ml-4 self-center font-bold'>{name}</div>
 
-            <div className='absolute right-0  flex flex-row self-center'>
+            <div className='absolute right-0  flex flex-row self-center mr-2'>
                 <div className='rounded-md bg-gray-600 p-2 self-end text-white text-1xl font-bold '>
                     {point}
                 </div>
