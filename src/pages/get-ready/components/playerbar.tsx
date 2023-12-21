@@ -1,22 +1,17 @@
 import router from 'next/router';
 import React from 'react';
 
-interface PlayerProps {
-    index: number;
+interface PlayerBarProps {
     point: number;
     name:string;
 }
 
-const PlayerBar: React.FC<PlayerProps> = ({ index , point, name}) => {
-    const handleClick = () => {
-        console.log('Button clicked');
-        // router.push('../join/get_ready');
-
-    };
+const PlayerBar: React.FC<PlayerBarProps> = ({ point, name}) => {
+    
 
     return (
-        <div className='bg-white w-screen item-center flex flex-row absolute bottom-0 left-0 p-2 '>
-            <div className="avatar">
+        <div className='bg-white w-screen item-center flex flex-row p-2 '>
+            <div className="avatar ml-2">
                 <div className="w-16 rounded-full">
                     <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                 </div>
@@ -27,10 +22,6 @@ const PlayerBar: React.FC<PlayerProps> = ({ index , point, name}) => {
                 <div className='rounded-md bg-gray-600 p-2 self-end text-white text-1xl font-bold '>
                     {point}
                 </div>
-
-                <button onClick={handleClick} className='p-2 self-end ml-4 bg-gray-600 text-1xl hover:bg-gray-900 text-white font-bold rounded-md'>
-                    Play game!
-                </button>
             </div>
         </div>
     );

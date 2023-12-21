@@ -14,7 +14,7 @@ const InputNamePage: React.FC = () => {
     // Add your game logic here.
     const client = new ClientPlayer();
     client.sendMessage(pin);
-    // router.push('../lobby');
+    router.push('../choose_powerups');
 
   };
 

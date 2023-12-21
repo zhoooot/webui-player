@@ -1,56 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import Quiz from './components/mini_components/quiz_player';
-import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import { Waiting } from './components/mini_components/waiting';
 import TimeBar from './components/mini_components/timeBar';
-import Answer from './components/mini_components/quiz_player_result';
+import Phase2 from './components/phase_host_2';
+import Phase3 from './components/phase_host_3';
+import Next from './components/mini_components/next_button';
+import Rank from './components/mini_components/current_rank';
 
-const quizData = [
-  {
-    question: "What is the capital of France?",
-    answers: ["Paris", "London", "Berlin", "Madrid"],
-    correctAnswer: 1,
-  },
-  {
-    question: "What is the ?",
-    answers: ["aaaa", "don", "bbb", "ssss"],
-    correctAnswer: 2,
-  },
-  {
-    question: "What is the capital of Germany?",
-    answers: ["Berlin", "Paris", "London", "Madrid"],
-    correctAnswer: 3,
-  },
-  {
-    question: "What is the capital of Spain?",
-    answers: ["Madrid", "Paris", "London", "Berlin"],
-    correctAnswer: 0,
-  },
-  {
-    question: "What is the capital of UK?",
-    answers: ["London", "Paris", "Berlin", "Madrid"],
-    correctAnswer: 1,
-  },
+const quizData: string | any[] = [
+  {question: "What is the capital of France?",
+  answers: ["Paris", "London", "Berlin", "Madrid"],
+  correctAnswer: 1,},
+  {question: "What is the ?",
+  answers: ["aaaa", "don", "bbb", "ssss"],
+  correctAnswer: 2,},
+  {question: "What is the capital of Germany?",
+  answers: ["Berlin", "Paris", "London", "Madrid"],
+  correctAnswer: 3,},
+  {question: "What is the capital of Spain?",
+  answers: ["Madrid", "Paris", "London", "Berlin"],
+  correctAnswer: 0,},
+  {question: "What is the capital of UK?",
+  answers: ["London", "Paris", "Berlin", "Madrid"],
+  correctAnswer: 1,}
 ];
 
-const Quizzes_Player = () => {
+const list: string | any[] = [
+  {name: "a", score: 1},
+  {name: "b", score: 2},
+  {name: "c", score: 3},
+  {name: "d", score: 4},
+  {name: "e", score: 5},
+  {name: "f", score: 6},
+  {name: "g", score: 7},
+  {name: "h", score: 8},
+  {name: "i", score: 9},
+  {name: "j", score: 10},
+  {name: "k", score: 11},
+  {name: "l", score: 12},
+  {name: "m", score: 13},
+  {name: "n", score: 14},
+  {name: "o", score: 15},
+  {name: "p", score: 16},
+];
+
+const Quizzes_Host = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [remainingTime, setRemainingTime] = useState(5);
-  const [selected, setSelected] = useState(false);
   const [Phase, setPhase] = useState(0);
-  const [timerKey, setTimerKey] = useState(0);
-  const [quizResults, setQuizResults] = useState<number | null>(null);
-
-  const handleAnswerSelect = (selectedAnswer: number | null) => {
-    setSelected(true);
-    setQuizResults(selectedAnswer);
-  };
-
-  useEffect(() => {
-    if (Phase) {
-      setTimerKey((prevKey) => prevKey + 1); // Change the timer key to reset the timer
-    }
-  }, [Phase]);
 
   return (
     <div>
@@ -63,72 +57,51 @@ const Quizzes_Player = () => {
               <TimeBar duration={5000} onFinished={() => {
                   setPhase(1);
                 }}/>
+              <Next onClick={() => {
+                  setPhase(1);
+                }}/>
             </div>
           )}
 
           {/*Phase 2*/}
           {Phase === 1 && (
             <>
-            <div className="absolute top-10 left-10">
-              <CountdownCircleTimer
-                key={timerKey}
-                isPlaying
-                duration={remainingTime}
-                size={50}
-                strokeWidth={10}
-                colors={'#A30000'}
-                onComplete={() => {
-                  setSelected(true);
-                  setPhase(2);
-                }}
-              >
-                {({ remainingTime }) => remainingTime}
-              </CountdownCircleTimer>
-            </div>
-            {selected ? (
-              <Waiting />
-            ) : (
-              <Quiz
-                quizData={quizData[currentQuestion]}
-                onAnswerSelect={handleAnswerSelect}
-              />
-            )}
+            <Phase2
+              onComplete={() => {
+                setPhase(2);
+              }}
+              next={() => {
+                setPhase(2);
+              }}
+              duration={5}
+              quizData={quizData[currentQuestion]}/>
           </>
           )}
 
           {/*Phase 3*/}
           {Phase === 2 && (
             <div>
-              <div className="absolute top-10 left-10">
-              <CountdownCircleTimer
-                key={timerKey}
-                isPlaying
-                duration={remainingTime}
-                size={50}
-                strokeWidth={10}
-                colors={'#A30000'}
+              <Phase3
                 onComplete={() => {
-                  setSelected(false);
                   setPhase(0);
+                  setCurrentQuestion(currentQuestion + 1);
                 }}
-              >
-                {({ remainingTime }) => remainingTime}
-              </CountdownCircleTimer>
-            </div>
-              <Answer
-                correctAnswer={quizData[currentQuestion].correctAnswer}
-                isCorrect={
-                selected &&
-                quizData[currentQuestion].correctAnswer === quizResults
-              }
-            />
+                next={() => {
+                  setPhase(0);
+                  setCurrentQuestion(currentQuestion + 1);
+                }}
+                duration={5}
+                quizData={quizData[currentQuestion]}
+                quizResult={[4,3,2,5]}/>
             </div>
             
           )}
+
+          <Rank list={list}></Rank>
         </div>
       )}
     </div>
   );
 };
 
-export default Quizzes_Player;
+export default Quizzes_Host;

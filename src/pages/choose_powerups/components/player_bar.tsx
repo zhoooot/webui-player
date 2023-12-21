@@ -9,7 +9,7 @@ interface PlayerProps {
 const PlayerBar: React.FC<PlayerProps> = ({ index, name }) => {
     const handleClick = () => {
         console.log('Button clicked');
-        // router.push('../join/get_ready');
+        router.push('../get-ready');
 
     };
 
