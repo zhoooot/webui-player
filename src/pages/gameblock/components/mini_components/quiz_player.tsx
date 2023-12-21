@@ -22,6 +22,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
   }
 
   const { question, answers, correctAnswer } = quizData;
+  const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500']
 
   const handleAnswerClick = (index: number) => {
     setSelectedAnswer(index);
@@ -37,10 +38,9 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
             key={index}
             onClick={() => handleAnswerClick(index)}
             style={{
-              backgroundColor: index === selectedAnswer ? 'lightblue' : 'white',
               cursor: 'pointer',
             }}
-            className="p-6 m-4 bg-blue-900 cursor-pointer border border-gray-300 rounded-md hover:bg-red-300"
+            className={`p-6 m-4 border border-gray-300 rounded-md cursor-pointer ${colors[index]} opacity-8 hover:opacity-100`}
           >
             {index}. {answer}
           </li>

@@ -17,6 +17,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData }) => {
   }
 
   const { question, answers, correctAnswer } = quizData;
+  const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500']
 
   return (
     <div className="absolute bottom-1 border-2 w-screen border-gray-600 p-7 rounded-lg bg-gray-200">
@@ -30,11 +31,10 @@ const Quiz: React.FC<QuizProps> = ({ quizData }) => {
             <li
               key={index}
               style={{
-                backgroundColor: isCorrectAnswer ? 'lightblue' : 'white',
                 cursor: 'pointer',
                 opacity: opacity,
               }}
-              className="p-6 m-4 bg-blue-900 cursor-pointer border border-gray-300 rounded-md hover:bg-red-300"
+              className={`p-6 m-4 border border-gray-300 rounded-md cursor-pointer ${colors[index]}`}
             >
               {index}. {answer}
             </li>
