@@ -58,8 +58,10 @@ const Quizzes_Player = () => {
         <div key={currentQuestion}>
           {/*Phase 1*/}
           {Phase === 0 && (
-            <div className='flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gray-200'>
-              <b>{quizData[currentQuestion].question}</b>
+            <div className='flex flex-col items-center justify-center w-screen h-screen  bg-gray-200'>
+              <div className='self-center font-bold text-8xl'>
+              {quizData[currentQuestion].question}
+                </div>
               <TimeBar duration={5000} onFinished={() => {
                   setPhase(1);
                 }}/>
