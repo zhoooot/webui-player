@@ -5,6 +5,7 @@ import Phase3 from './components/phase_host_3';
 import Next from './components/mini_components/next_button';
 import Rank from './components/mini_components/current_rank';
 import Phase4 from './components/phase_host_4';
+import router from 'next/router';
 
 const quizData: string | any[] = [
   {question: "What is the capital of France?",
@@ -41,6 +42,12 @@ const list: string | any[] = [
 const Quizzes_Host = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [Phase, setPhase] = useState(0);
+
+  useEffect(() => {
+    if (currentQuestion >= quizData.length) {
+      router.push('/gameover'); // replace '/new-route' with the path you want to navigate to
+    }
+  }, [currentQuestion]);
 
   return (
     <div>
