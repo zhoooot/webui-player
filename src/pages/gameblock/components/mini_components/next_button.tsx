@@ -6,8 +6,8 @@ type NextProps = {
 
 const Next: React.FC<NextProps> = ({ onClick }) => {
     return (
-        <button className='absolute top-10 right-8 rounded-lg bg-blue-300 hover:bg-blue-500 p-2' onClick={onClick}>
-            Next
+        <button className='absolute text-purple-700 top-40 right-10 rounded-full bg-white hover:bg-gray-100 pt-2 pb-2 pr-8 pl-8 text-lg z-10' onClick={onClick}>
+            Skip
         </button>
     );
 };
