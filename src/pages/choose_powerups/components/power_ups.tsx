@@ -62,7 +62,7 @@ const Grid = () => {
         ))}
       </div>
     </div>
-    <PlayerBar index={getNumbPowerUp(clickedButtons)}/>
+    <PlayerBar index={getNumbPowerUp(clickedButtons)} name='Shut the fuk up'/>
     </div>
   );
 };

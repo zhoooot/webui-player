@@ -3,10 +3,11 @@ import React from 'react';
 
 interface PlayerProps {
     index: number;
+    point: number;
     name:string;
 }
 
-const PlayerBar: React.FC<PlayerProps> = ({ index, name }) => {
+const PlayerBar: React.FC<PlayerProps> = ({ index , point, name}) => {
     const handleClick = () => {
         console.log('Button clicked');
         // router.push('../join/get_ready');
@@ -24,7 +25,7 @@ const PlayerBar: React.FC<PlayerProps> = ({ index, name }) => {
 
             <div className='absolute right-0  flex flex-row self-center'>
                 <div className='rounded-md bg-gray-600 p-2 self-end text-white text-1xl font-bold '>
-                    {index}
+                    {point}
                 </div>
 
                 <button onClick={handleClick} className='p-2 self-end ml-4 bg-gray-600 text-1xl hover:bg-gray-900 text-white font-bold rounded-md'>
