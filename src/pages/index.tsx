@@ -4,6 +4,10 @@
 // role => nếu đúng role => mới truy cập đc
 // ko thì redirect về trang ...
 
+import { ClientPlayer } from "@/logic/client-player";
+import router from "next/router";
+import {Player} from "@/logic/player";
+
 
 // call authentication service, return token and save into local storage
 // token contains role of user
@@ -20,4 +24,21 @@
 // 8. clear local storage
 // 9. redirect to login
 
+const App = () => {
 
+    Player.client.sendMessage("hello");
+
+    const goToJoin = () => {
+        router.push('/join/pinInput');
+    }
+
+    return (
+        <div>
+        <button onClick={() => goToJoin()}>
+            Join
+        </button>
+        </div>
+    )
+}
+
+export default App;

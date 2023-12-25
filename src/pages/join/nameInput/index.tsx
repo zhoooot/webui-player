@@ -6,14 +6,17 @@ import { ClientPlayer } from "@/logic/client-player";
 import Image from 'next/image';
 import Image0 from '/public/images/app_logo.svg';
 import router from "next/router";
+import { Player } from "@/logic/player";
+
 const InputNamePage: React.FC = () => {
   const handlePinSubmit = (pin: string) => {
     // Handle the submitted PIN (e.g., check it against the correct PIN).
     console.log("Submitted Name:", pin);
 
     // Add your game logic here.
-    const client = new ClientPlayer();
-    client.sendMessage(pin);
+    Player.client.sendMessage({type: "join", room: "1234", username: "shutthefuckup"})
+
+    // push router
     router.push('../choose_powerups');
 
   };
