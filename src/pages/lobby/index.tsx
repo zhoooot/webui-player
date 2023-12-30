@@ -53,7 +53,7 @@ const Lobby = () => {
       socket.emit("start", {
         room: router.query.pin as string,
       });
-      router.push("../gameblock");
+      router.replace("../gameblock/host/");
     } else {
       console.log("Socket is null");
     }

@@ -8,7 +8,7 @@ import { ClientPlayer } from '@/logic/client-player';
 const Home: React.FC = () => {
 
   Player.getPlayerClient().socketClient.on('start', (message: any) => {
-    router.push('../gameblock')
+    router.replace('../gameblock/player')
   })
 
   return (
