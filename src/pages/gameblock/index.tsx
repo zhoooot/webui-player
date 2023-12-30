@@ -17,7 +17,6 @@ const quizData: string | any[] = [
   {question: "What is the capital of Germany?",
   answers: ["Berlin", "Paris", "London", "Madrid"],
   correctAnswer: 3,},
- 
 ];
 
 const list: string | any[] = [
