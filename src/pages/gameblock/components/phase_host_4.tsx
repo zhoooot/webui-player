@@ -31,7 +31,10 @@ const Phase4: React.FC<Phase4Props> = ({ next, list }) => {
                 {list.map((player) => (
                 <div className='flex flex-row items-center justify-between w-full bg-gray-500 p-2 text-white'>
                     <div className='flex flex-row items-center'>
-                        <Image src='/images/powerups/1.png' width={8} height={8} alt='avatar' />
+                        <div className='flex relative bg-gray-100 w-10 h-10'>
+                            <Image src='/images/powerups/1.png' layout='fill' objectFit='contain' alt='avatar' />
+                        </div>
+                        
                         <div className='ml-5'>{player.name}</div>
                     </div>
                     <div className='mr-5'>{player.score}</div>

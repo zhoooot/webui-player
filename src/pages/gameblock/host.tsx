@@ -18,22 +18,22 @@ const quizData: string | any[] = [
 ];
 
 const list: string | any[] = [
-  {name: "a", score: 1},
-  {name: "b", score: 2},
-  {name: "c", score: 3},
-  {name: "d", score: 4},
+  {name: "a", score: 13},
+  {name: "b", score: 12},
+  {name: "c", score: 35},
+  {name: "d", score: 42},
   {name: "e", score: 5},
-  {name: "f", score: 6},
+  {name: "f", score: 63},
   {name: "g", score: 7},
-  {name: "h", score: 8},
+  {name: "h", score: 28},
   {name: "i", score: 9},
   {name: "j", score: 10},
-  {name: "k", score: 11},
-  {name: "l", score: 12},
-  {name: "m", score: 13},
-  {name: "n", score: 14},
-  {name: "o", score: 15},
-  {name: "p", score: 16},
+  {name: "k", score: 113},
+  {name: "l", score: 192},
+  {name: "m", score: 137},
+  {name: "n", score: 144},
+  {name: "o", score: 115},
+  {name: "p", score: 163},
 ];
 
 const Quizzes_Host = () => {
@@ -93,8 +93,8 @@ const Quizzes_Host = () => {
                 quizData={quizData[currentQuestion]}
                 quizResult={[4,3,2,5]}/>
             </div>
-            
           )}
+
           {/*Phase 4*/}
           {Phase === 3 && (
             <div>
@@ -104,11 +104,8 @@ const Quizzes_Host = () => {
                   setCurrentQuestion(currentQuestion + 1);
                 }}
                 list={list}/>
-              
             </div>
-            
           )}
-          
 
         </div>
       )}
