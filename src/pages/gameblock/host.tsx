@@ -4,6 +4,8 @@ import Phase2 from './components/phase_host_2';
 import Phase3 from './components/phase_host_3';
 import Next from './components/mini_components/next_button';
 import Rank from './components/mini_components/current_rank';
+import Phase4 from './components/phase_host_4';
+import router from 'next/router';
 
 const quizData: string | any[] = [
   {question: "What is the capital of France?",
@@ -15,12 +17,6 @@ const quizData: string | any[] = [
   {question: "What is the capital of Germany?",
   answers: ["Berlin", "Paris", "London", "Madrid"],
   correctAnswer: 3,},
-  {question: "What is the capital of Spain?",
-  answers: ["Madrid", "Paris", "London", "Berlin"],
-  correctAnswer: 0,},
-  {question: "What is the capital of UK?",
-  answers: ["London", "Paris", "Berlin", "Madrid"],
-  correctAnswer: 1,}
 ];
 
 const list: string | any[] = [
@@ -46,20 +42,30 @@ const Quizzes_Host = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [Phase, setPhase] = useState(0);
 
+  useEffect(() => {
+    if (currentQuestion >= quizData.length) {
+      router.push('/gameover'); // replace '/new-route' with the path you want to navigate to
+    }
+  }, [currentQuestion]);
+
   return (
     <div>
       {currentQuestion < quizData.length && (
         <div key={currentQuestion}>
           {/*Phase 1*/}
           {Phase === 0 && (
-            <div className='flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gray-200'>
-              <b>{quizData[currentQuestion].question}</b>
-              <TimeBar duration={5000} onFinished={() => {
-                  setPhase(1);
-                }}/>
-              <Next onClick={() => {
-                  setPhase(1);
-                }}/>
+            <div className='flex flex-col items-center justify-center w-screen h-screen bg-gray-200'>
+             <div className='font-bold text-4xl text-center h-full align-middle flex items-center'>
+                {quizData[currentQuestion].question}
+              </div>
+              <div className='self-end w-full h-auto mb-8'>
+                <div className='col items-center justify-center'>
+                  <TimeBar duration={5000} onFinished={() => {
+                    setPhase(1);
+                  }} />
+                </div>
+              </div>
+
             </div>
           )}
 
@@ -83,12 +89,10 @@ const Quizzes_Host = () => {
             <div>
               <Phase3
                 onComplete={() => {
-                  setPhase(0);
-                  setCurrentQuestion(currentQuestion + 1);
+                  setPhase(3);
                 }}
                 next={() => {
-                  setPhase(0);
-                  setCurrentQuestion(currentQuestion + 1);
+                  setPhase(3);
                 }}
                 duration={5}
                 quizData={quizData[currentQuestion]}
@@ -96,8 +100,21 @@ const Quizzes_Host = () => {
             </div>
             
           )}
+          {/*Phase 4*/}
+          {Phase === 3 && (
+            <div>
+              <Phase4
+                next={() => {
+                  setPhase(0);
+                  setCurrentQuestion(currentQuestion + 1);
+                }}
+                list={list}/>
+              
+            </div>
+            
+          )}
+          
 
-          <Rank list={list}></Rank>
         </div>
       )}
     </div>

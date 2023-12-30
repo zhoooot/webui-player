@@ -23,7 +23,7 @@ const Phase2: React.FC<Phase2Props> = ({ onComplete, next, duration, quizData })
 
   return (
     <>
-      <div className="absolute top-10 left-10">
+      <div className="absolute top-20 left-20">
         <CountdownCircleTimer
           isPlaying
           duration={duration}
