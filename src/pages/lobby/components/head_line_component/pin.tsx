@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface PinProps {
-  pin: number;
+  pin: string;
 }
 
 const Pin: React.FC<PinProps> = ({ pin }) => {

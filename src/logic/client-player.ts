@@ -1,16 +1,12 @@
 import { OnModuleInit } from '@nestjs/common';
 import {Socket, io} from 'socket.io-client';
 
-export class ClientPlayer implements OnModuleInit {
+export class ClientPlayer {
     public socketClient: Socket;
 
     constructor() {
-        this.socketClient = io('http://192.168.137.36:8080', { transports : ['websocket'] });
-    }
-
-    onModuleInit() {
+        this.socketClient = io('http://192.168.1.12:8080', { transports : ['websocket'] });
         console.log("Entering...")
-        this.socketClient.emit({type: 'join', room: '1234', username: 'test'}.toString());
         this.socketClient.on('connect', () => {
             console.log('connected');
         });

@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@nestjs/common": "^10.2.10",
+    "axios": "^1.6.3",
     "next": "^14.0.1",
     "react": "^18",
     "react-countdown": "^2.3.5",

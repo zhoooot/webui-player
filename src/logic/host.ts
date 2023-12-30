@@ -7,6 +7,13 @@ export class Host {
         this.client.sendMessage(message);
     }
 
+    static getHostClient() {
+        if (!Host.client) {
+            Host.client = new ClientPlayer();
+        }
+        return Host.client;
+    }
+
     static onMessage(callback: (event: any, data: any) => void) {
         this.client.onReceiveMessage(callback);
     }

@@ -1,37 +1,36 @@
 // pages/game.tsx
 import React from "react";
 import NameInput from "./components/nameInput";
-import { io } from "socket.io-client";
-import { ClientPlayer } from "@/logic/client-player";
-import Image from 'next/image';
-import Image0 from '/public/images/app_logo.svg';
+import Image from "next/image";
+import Image0 from "/public/images/app_logo.svg";
 import router from "next/router";
-import { Player } from "@/logic/player";
+import axios from "axios";
 
 const InputNamePage: React.FC = () => {
-  const handlePinSubmit = (pin: string) => {
+
+  const handleNameSubmit = (name: string) => {
     // Handle the submitted PIN (e.g., check it against the correct PIN).
-    console.log("Submitted Name:", pin);
+    console.log("Submitted Name:", name);
 
     // Add your game logic here.
-    Player.client.sendMessage({type: "join", room: "1234", username: "shutthefuckup"})
+    localStorage.setItem("pin", router.query.pin as string)
+    localStorage.setItem("username", name);
 
     // push router
-    router.push('../choose_powerups');
-
+    router.push("../choose_powerups");
   };
 
   return (
-    <div className="w-screen h-screen bg-purple-600 relative">
-      <div className="w-auto h-auto flex flex-col justify-center top-0 left-0 right-0 bottom-0 absolute mb-20">
-        <div className="self-center">
-          <Image src={Image0} alt="App logo" />
+      <div className="w-screen h-screen bg-purple-600 relative">
+        <div className="w-auto h-auto flex flex-col justify-center top-0 left-0 right-0 bottom-0 absolute mb-20">
+          <div className="self-center">
+            <Image src={Image0} alt="App logo" />
           </div>
-        <div className="self-center h-10 w-3/12">
-          <NameInput onSubmit={handlePinSubmit} />
+          <div className="self-center h-10 w-3/12">
+            <NameInput onSubmit={handleNameSubmit} />
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

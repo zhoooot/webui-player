@@ -1,13 +1,10 @@
-
 // gọi authenticate của XuTu => trả về token => lưu vào localStorage
 // token chứa role của thằng đấy luôn
 // role => nếu đúng role => mới truy cập đc
 // ko thì redirect về trang ...
 
-import { ClientPlayer } from "@/logic/client-player";
 import router from "next/router";
-import {Player} from "@/logic/player";
-
+import { useState } from "react";
 
 // call authentication service, return token and save into local storage
 // token contains role of user
@@ -25,20 +22,29 @@ import {Player} from "@/logic/player";
 // 9. redirect to login
 
 const App = () => {
+  const goToJoin = () => {
+    router.push("/join/pinInput");
+  };
 
-    Player.client.sendMessage("hello");
+  const [inputValue, setInputValue] = useState("");
 
-    const goToJoin = () => {
-        router.push('/join/pinInput');
-    }
-
-    return (
-        <div>
-        <button onClick={() => goToJoin()}>
-            Join
-        </button>
-        </div>
-    )
-}
+  return (
+    <div>
+      <button onClick={() => goToJoin()}>Join Player</button>
+      <input
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      ></input>
+      <button
+        onClick={() =>
+          router.push({ pathname: "/lobby", query: { pin: inputValue } })
+          //router.push({ pathname: "/join/nameInput" })
+        }
+      >
+        Join Host
+      </button>
+    </div>
+  );
+};
 
 export default App;

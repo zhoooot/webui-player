@@ -6,37 +6,65 @@ import Start from "./components/head_line_component/start";
 import PlayerCount from "./components/head_line_component/player_count";
 import Setting from "./components/head_line_component/setting";
 import Player from "./components/body_component/player";
-import { io } from "socket.io-client";
+import { Socket, io } from "socket.io-client";
 import { Host } from "@/logic/host";
+import { ClientPlayer } from "@/logic/client-player";
 
 const Lobby = () => {
   const router = useRouter();
 
-  const [initialized, setInitialized] = useState(false);
+  const [socket, setSocket] = useState<Socket | null>(null);
 
-  if (!initialized) {
-    Host.client.sendMessage({ type: "join", room: "1234", username: "host" });
-    setInitialized(true);
-  }
+  useEffect(() => {
+    const newSocket = Host.getHostClient().socketClient;
 
-  const handleStart = () => {
-    Host.client.sendMessage({type: "start", room: "1234"})
-    router.push("../gameblock");
-  };
+    newSocket.on("connect", () => {
+      console.log("Connected to socket server");
+      newSocket.emit("host", {
+        room: router.query.pin as string,
+        username: "host",
+      });
+    });
+
+    setSocket(newSocket);
+
+    return () => {
+      if (socket) socket.close();
+    };
+  }, []);
 
   const [players, setPlayers] = useState<string[]>([]);
 
-  Host.client.socketClient.on('joinGame', (message) => {
-    console.log(message)
-    setPlayers((players) => [...players, message.username])
-  })
+  console.log(players)
+
+  useEffect(() => {
+    socket?.on('join', (message: any) => {
+      console.log('Join event received', message);
+      setPlayers([...players, message.username]);
+    });
+  });
+
+  const pin = (router.query.pin as string) || "";
+
+  localStorage.setItem("hostpin", router.query.pin as string);
+
+  const handleStart = () => {
+    if (socket) {
+      socket.emit("start", {
+        room: router.query.pin as string,
+      });
+      router.push("../gameblock");
+    } else {
+      console.log("Socket is null");
+    }
+  };
 
   return (
     <div className="bg-yellow-100 flex flex-col h-screen justify-start items-center">
       {/* Headline*/}
       <div className="flex flex-row justify-between items-center gap-2">
         <Ad />
-        <Pin pin={123456} />
+        <Pin pin={pin} />
         <div className="flex flex-col items-center justify-between h-full w-36 gap-3">
           <div className="flex flex-row justify-between h-full w-full gap-2">
             <PlayerCount count={players.length} />

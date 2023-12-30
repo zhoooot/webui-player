@@ -3,10 +3,11 @@ import React from 'react';
 import Loading from './components/loading';
 import {Player} from '../../logic/player';
 import router from "next/router";
+import { ClientPlayer } from '@/logic/client-player';
 
 const Home: React.FC = () => {
 
-  Player.client.socketClient.on('start', (message: any) => {
+  Player.getPlayerClient().socketClient.on('start', (message: any) => {
     router.push('../gameblock')
   })
 
