@@ -1,5 +1,3 @@
-// Phase1.js
-
 import React, { useState } from 'react';
 import {CountdownCircleTimer} from 'react-countdown-circle-timer';
 import Quiz from './mini_components/quiz_host';
@@ -23,7 +21,7 @@ const Phase2: React.FC<Phase2Props> = ({ onComplete, next, duration, quizData })
 
   return (
     <>
-      <div className="absolute top-10 left-10">
+      <div className="absolute top-20 left-20">
         <CountdownCircleTimer
           isPlaying
           duration={duration}

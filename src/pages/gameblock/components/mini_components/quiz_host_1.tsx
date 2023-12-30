@@ -6,6 +6,7 @@ import Svg2 from '/public/images/answers/diamond.svg';
 import Svg3 from '/public/images/answers/circle.svg';
 import Svg4 from '/public/images/answers/square.svg';
 import QuizTypes from 'public/images/quiz_types.svg';
+import HostResult from './quiz_host_result';
 
 interface QuizData {
     question: string;
@@ -15,10 +16,12 @@ interface QuizData {
 
 interface QuizProps {
     quizData: QuizData;
+    quizResult: number[];
+
 }
 const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500']
 
-const Quiz: React.FC<QuizProps> = ({ quizData }) => {
+const Quiz: React.FC<QuizProps> = ({ quizData, quizResult}) => {
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
     // Array of SVGs
@@ -30,24 +33,25 @@ const Quiz: React.FC<QuizProps> = ({ quizData }) => {
     }
 
     const { question, answers, correctAnswer } = quizData;
-
+    
 
 
     return (
         <div className="flex flex-col w-screen h-screen bg-gray-200">
-            <div className='absolute top-0 left-0 right-0 m-2 '>
+            <div className='absolute top-0 left-0 right-0 mh-2 mb-10'>
                 <div className='flex flex-col self-center items-center h-full justify-center '>
                     <Image src={QuizTypes} alt="Quiz Types" width={200} height={200} className='ml-2 mt-2 items-center' />
                 </div>
 
             </div>
-            <div className='absolute top-0 left-0 right-0 bottom-0 m-2  '>
+            <div className='mt-32  '>
                 <div className='flex flex-col self-center items-center h-full justify-center '>
                     <div className='font-bold text-4xl text-center p-4 align-middle flex items-center bg-white'>
                         {question}
                     </div>
                 </div>
             </div>
+            <HostResult Correct={quizResult} correctAnswer={correctAnswer} />
             <div className='absolute bottom-4 left-0'>
                 <div className="w-screen p-2 rounded-lg quiz-container">
                     <ul className="grid grid-cols-2 answer-grid gap-2">

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import TimeBar from './components/mini_components/timeBar';
 import Phase2 from './components/phase_host_2';
 import Phase3 from './components/phase_host_3';
-import Next from './components/mini_components/next_button';
-import Rank from './components/mini_components/current_rank';
 import Phase4 from './components/phase_host_4';
 import router from 'next/router';
 
@@ -88,9 +86,6 @@ const Quizzes_Host = () => {
           {Phase === 2 && (
             <div>
               <Phase3
-                onComplete={() => {
-                  setPhase(3);
-                }}
                 next={() => {
                   setPhase(3);
                 }}
