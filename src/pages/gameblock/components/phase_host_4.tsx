@@ -14,7 +14,6 @@ interface Phase4Props {
 
 }
 
-
 const Phase4: React.FC<Phase4Props> = ({ next, list }) => {
     return (
         
