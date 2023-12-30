@@ -1,5 +1,4 @@
 import React from 'react';
-import {CountdownCircleTimer} from 'react-countdown-circle-timer';
 import Quiz from './mini_components/quiz_host_1';
 import Next from './mini_components/next_button';
 
