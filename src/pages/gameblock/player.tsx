@@ -64,7 +64,7 @@ const Quizzes_Player = () => {
               <div className='self-end w-full h-auto'>
                 <div className='col items-center justify-center'>
                   <TimeBar duration={5000} onFinished={() => {
-                    setPhase(1);
+                    // setPhase(1);
                   }} />
                   <PlayerBar point={2222} name="Player 1" />
                 </div>
@@ -86,7 +86,7 @@ const Quizzes_Player = () => {
                   colors={'#A30000'}
                   onComplete={() => {
                     setSelected(true);
-                    setPhase(2);
+                    //setPhase(2);
                   }}
                 >
                   {({ remainingTime }) => remainingTime}

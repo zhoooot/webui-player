@@ -3,9 +3,11 @@ import Quiz from './mini_components/quiz_host_1';
 import Next from './mini_components/next_button';
 
 interface QuizData {
-    question: string;
+    content: string;
     answers: string[];
     correctAnswer: number;
+    time: number;
+    permit: boolean;
   }
 
 interface Phase3Props {

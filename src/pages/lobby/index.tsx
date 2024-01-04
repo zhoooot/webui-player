@@ -35,25 +35,69 @@ const Lobby = () => {
 
   const [players, setPlayers] = useState<string[]>([]);
 
-  console.log(players)
+  let first_question = {
+    content: "",
+    answers: [""],
+    correctAnswer: 0,
+    time: 0,
+    permit: false,
+  };
 
   useEffect(() => {
-    socket?.on('join', (message: any) => {
-      console.log('Join event received', message);
+    socket?.on("join", (message: any) => {
+      console.log("Join event received", message);
       setPlayers([...players, message.username]);
+    });
+    socket?.on("host", (message: any) => {
+      // console.log('Host event received', message)
+      if (message.question === undefined) {
+        console.log("Question is undefined");
+        return;
+      }
+
+      console.log(message);
+      console.log(message.question.answers);
+      try {
+        let answers_list: string[] = [];
+        for (let i = 0; i < message.question.answers.length; i++) {
+          let answer = message.question.answers[i].content;
+          answers_list.push(answer);
+        }
+        first_question = {
+          content: message.question.content,
+          answers: answers_list,
+          correctAnswer: message.question.correct_answer,
+          time: message.question.time,
+          permit: message.question.allow_power,
+        };
+        console.log("Host event received", first_question);
+      } catch (error) {
+        console.log(error);
+      }
     });
   });
 
   const pin = (router.query.pin as string) || "";
-
-  localStorage.setItem("hostpin", router.query.pin as string);
+  if (typeof window !== "undefined") {
+    localStorage.setItem("hostpin", router.query.pin as string);
+  }
 
   const handleStart = () => {
     if (socket) {
       socket.emit("start", {
         room: router.query.pin as string,
       });
-      router.replace("../gameblock/host/");
+      console.log("Sending the first question to the host", first_question);
+      router.replace({
+        pathname: "../gameblock/host/",
+        query: {
+          content: first_question.content,
+          time: first_question.time,
+          allow_power: first_question.permit,
+          answers: first_question.answers,
+          correct_answer: first_question.correctAnswer,
+        },
+      });
     } else {
       console.log("Socket is null");
     }

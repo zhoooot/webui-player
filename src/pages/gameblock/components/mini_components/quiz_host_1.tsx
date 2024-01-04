@@ -9,9 +9,11 @@ import QuizTypes from 'public/images/quiz_types.svg';
 import HostResult from './quiz_host_result';
 
 interface QuizData {
-    question: string;
+    content: string;
     answers: string[];
     correctAnswer: number;
+    time: number;
+    permit: boolean;
 }
 
 interface QuizProps {
@@ -32,7 +34,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, quizResult}) => {
         return null;
     }
 
-    const { question, answers, correctAnswer } = quizData;
+    const { content, answers, correctAnswer, time, permit } = quizData;
     
 
 
@@ -47,7 +49,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, quizResult}) => {
             <div className='mt-32  '>
                 <div className='flex flex-col self-center items-center h-full justify-center '>
                     <div className='font-bold text-4xl text-center p-4 align-middle flex items-center bg-white'>
-                        {question}
+                        {content}
                     </div>
                 </div>
             </div>

@@ -8,9 +8,11 @@ import Svg4 from '/public/images/answers/square.svg';
 import QuizTypes from 'public/images/quiz_types.svg';
 
 interface QuizData {
-  question: string;
+  content: string;
   answers: string[];
   correctAnswer: number;
+  time: number;
+  permit: boolean;
 }
 
 interface QuizProps {
@@ -29,7 +31,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData}) => {
     return null;
   }
 
-  const { question, answers, correctAnswer } = quizData;
+  const { content, answers, correctAnswer, time, permit } = quizData;
 
   
 
@@ -44,7 +46,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData}) => {
       <div className='absolute top-0 left-0 right-0 bottom-0 m-2  '>
         <div className='flex flex-col self-center items-center h-full justify-center '>
           <div className='font-bold text-4xl text-center p-4 align-middle flex items-center bg-white'>
-            {question}
+            {content}
           </div>
         </div>
         </div>

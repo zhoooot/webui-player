@@ -1,11 +1,10 @@
-import { OnModuleInit } from '@nestjs/common';
 import {Socket, io} from 'socket.io-client';
 
 export class ClientPlayer {
     public socketClient: Socket;
 
     constructor() {
-        this.socketClient = io('http://192.168.1.12:8080', { transports : ['websocket'] });
+        this.socketClient = io('http://localhost:8080', { transports : ['websocket'] });
         console.log("Entering...")
         this.socketClient.on('connect', () => {
             console.log('connected');

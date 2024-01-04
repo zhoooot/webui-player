@@ -15,7 +15,7 @@ const HostResult: React.FC<HostResultProps> = ({ Correct, correctAnswer }) => {
   return (
     <div className='mt-32'>
         <div className="flex flex-row items-end justify-center h-full w-screen">
-        {Correct.map((number, index) => (
+        {Correct && Correct.map((number, index) => (
             <div
             key={index}
             className={`w-1/12 m-2 ${colors[index]} flex flex-col items-baseline justify-end`}
