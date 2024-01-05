@@ -56,7 +56,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, quizResult}) => {
                 </div>
 
                 <HostResult Correct={quizResult} correctAnswer={correctAnswer} />
-                <div className='mt-2'>
+                <div className='mt-2 absolute left-0 bottom-0'>
                     <div className="w-screen p-2 rounded-lg quiz-container">
                         <ul className="grid grid-cols-2 answer-grid gap-2">
                             {answers.map((answer, index) => {
