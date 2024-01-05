@@ -10,6 +10,14 @@ import { Socket, io } from "socket.io-client";
 import { Host } from "@/logic/host";
 import { ClientPlayer } from "@/logic/client-player";
 
+let first_question = {
+  content: "",
+  answers: [""],
+  correctAnswer: 0,
+  time: 0,
+  permit: false,
+};
+
 const Lobby = () => {
   const router = useRouter();
 
@@ -34,14 +42,6 @@ const Lobby = () => {
   }, []);
 
   const [players, setPlayers] = useState<string[]>([]);
-
-  let first_question = {
-    content: "",
-    answers: [""],
-    correctAnswer: 0,
-    time: 0,
-    permit: false,
-  };
 
   useEffect(() => {
     socket?.on("join", (message: any) => {

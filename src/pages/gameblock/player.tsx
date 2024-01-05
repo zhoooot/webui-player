@@ -6,25 +6,28 @@ import TimeBar from './components/mini_components/timeBar';
 import Answer from './components/mini_components/quiz_player_result';
 import PlayerBar from './components/mini_components/playerbar';
 import router from 'next/router';
+import { Host } from '@/logic/host';
+import { Socket } from 'socket.io-client';
+import { Player } from '@/logic/player';
 
-const quizData = [
-  {
-    question: "What is the capital of France?",
-    answers: ["Paris", "London", "Berlin", "Madrid"],
-    correctAnswer: 1,
-  },
-  {
-    question: "What is the ?",
-    answers: ["aaaa", "don", "bbb", "ssss"],
-    correctAnswer: 2,
-  },
-  {
-    question: "What is the capital of Germany?",
-    answers: ["Berlin", "Paris", "London", "Madrid"],
-    correctAnswer: 3,
-  },
+// const quizData = [
+//   {
+//     question: "What is the capital of France?",
+//     answers: ["Paris", "London", "Berlin", "Madrid"],
+//     correctAnswer: 1,
+//   },
+//   {
+//     question: "What is the ?",
+//     answers: ["aaaa", "don", "bbb", "ssss"],
+//     correctAnswer: 2,
+//   },
+//   {
+//     question: "What is the capital of Germany?",
+//     answers: ["Berlin", "Paris", "London", "Madrid"],
+//     correctAnswer: 3,
+//   },
   
-];
+// ];
 
 const Quizzes_Player = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -33,6 +36,7 @@ const Quizzes_Player = () => {
   const [Phase, setPhase] = useState(0);
   const [timerKey, setTimerKey] = useState(0);
   const [quizResults, setQuizResults] = useState<number | null>(null);
+  const [socket, setSocket] = useState<Socket | null>(null);
 
   const handleAnswerSelect = (selectedAnswer: number | null) => {
     setSelected(true);
@@ -45,6 +49,15 @@ const Quizzes_Player = () => {
     }
   }, [Phase]);
 
+  useEffect(() => {
+    const newSocket = Player.getPlayerClient().socketClient;
+
+    setSocket(newSocket);
+
+    return () => {
+      if (socket) socket.close();
+    };
+  }, []);
 
   useEffect(() => {
     if (currentQuestion >= quizData.length) {
