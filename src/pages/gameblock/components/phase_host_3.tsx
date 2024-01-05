@@ -20,8 +20,8 @@ interface Phase3Props {
 const Phase3: React.FC<Phase3Props> = ({ next, duration, quizData, quizResult }) => {
   return (
     <div>
-      <Next onClick={next}></Next>
-      <Quiz quizData={quizData} quizResult={quizResult} />
+      
+      <Quiz quizData={quizData} quizResult={quizResult} next={next} />
     </div>
   );
 };

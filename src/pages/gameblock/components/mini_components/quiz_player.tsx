@@ -39,15 +39,10 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
 
   return (
     <div className="flex flex-col w-screen h-screen bg-gray-200">
-      <div className='absolute top-0 left-0 right-0 m-2 '>
-        <div className='flex flex-col self-center items-center h-full justify-center '>
-          <Image src={QuizTypes} alt="Quiz Types" width={200} height={200} className='ml-2 mt-2 items-center' />
-        </div>
-
-      </div>
+      
       <div className='absolute bottom-0 left-0'>
       <div className="w-screen p-2 rounded-lg quiz-container">
-        <div className='text-center text-xl font-bold m-2 pl-4 pr-4 pt-2 pb-2 bg-white'>Question: {question}</div>
+        <div className='text-center text-xl font-bold m-2 pl-4 pr-4 pt-2 pb-2 bg-white w-2/4 break-all'>Question: {question}</div>
         <ul className="grid grid-cols-2 answer-grid gap-2">
           {answers.map((answer, index) => (
             <li

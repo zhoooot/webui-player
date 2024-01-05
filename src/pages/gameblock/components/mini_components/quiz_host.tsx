@@ -37,15 +37,10 @@ const Quiz: React.FC<QuizProps> = ({ quizData}) => {
 
   return (
     <div className="flex flex-col w-screen h-screen bg-gray-200">
-      <div className='absolute top-0 left-0 right-0 m-2 '>
-        <div className='flex flex-col self-center items-center h-full justify-center '>
-          <Image src={QuizTypes} alt="Quiz Types" width={200} height={200} className='ml-2 mt-2 items-center' />
-        </div>
-
-      </div>
+      
       <div className='absolute top-0 left-0 right-0 bottom-0 m-2  '>
         <div className='flex flex-col self-center items-center h-full justify-center '>
-          <div className='font-bold text-4xl text-center p-4 align-middle flex items-center bg-white'>
+          <div className='font-bold text-2xl text-center p-4 align-middle flex items-center bg-white w-2/4 break-all'>
             {content}
           </div>
         </div>

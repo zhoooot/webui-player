@@ -7,6 +7,7 @@ import Svg3 from '/public/images/answers/circle.svg';
 import Svg4 from '/public/images/answers/square.svg';
 import QuizTypes from 'public/images/quiz_types.svg';
 import HostResult from './quiz_host_result';
+import Next from './next_button';
 
 interface QuizData {
     content: string;
@@ -19,11 +20,12 @@ interface QuizData {
 interface QuizProps {
     quizData: QuizData;
     quizResult: number[];
+    next: () => void;
 
 }
 const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500']
 
-const Quiz: React.FC<QuizProps> = ({ quizData, quizResult}) => {
+const Quiz: React.FC<QuizProps> = ({ quizData, quizResult, next}) => {
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
     // Array of SVGs
@@ -41,16 +43,14 @@ const Quiz: React.FC<QuizProps> = ({ quizData, quizResult}) => {
     return (
         <div className="flex flex-col w-screen h-screen bg-gray-200 overflow-hidden">
             <div className='flex flex-col h-full w-full object-scale-down'>
-                <div className=''>
-                    <div className='flex flex-col self-center items-center h-full justify-center '>
-                        <Image src={QuizTypes} alt="Quiz Types" width={200} height={200} className='ml-2 mt-2 items-center' />
-                    </div>
+                <div>
+                    <Next onClick={next} />
                 </div>
 
-                <div className='mt-5 '>
-                    <div className='flex flex-col self-center items-center h-full justify-center '>
-                        <div className='font-bold text-4xl text-center p-4 align-middle flex items-center bg-white'>
-                            {content}
+                <div className='mt-5'>
+                    <div className='flex flex-col self-center items-center h-full justify-center'>
+                        <div className='font-bold text-2xl text-center p-4 align-middle flex items-center bg-white w-2/4 break-all'>
+                            fjakskekttfdddddddddddddddddddddddddddddddddfdsssssssssssssssssss
                         </div>
                     </div>
                 </div>
