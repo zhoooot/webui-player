@@ -39,47 +39,48 @@ const Quiz: React.FC<QuizProps> = ({ quizData, quizResult}) => {
 
 
     return (
-        <div className="flex flex-col w-screen h-screen bg-gray-200">
-            <div className='absolute top-0 left-0 right-0 mh-2 mb-10'>
-                <div className='flex flex-col self-center items-center h-full justify-center '>
-                    <Image src={QuizTypes} alt="Quiz Types" width={200} height={200} className='ml-2 mt-2 items-center' />
-                </div>
-
-            </div>
-            <div className='mt-32  '>
-                <div className='flex flex-col self-center items-center h-full justify-center '>
-                    <div className='font-bold text-4xl text-center p-4 align-middle flex items-center bg-white'>
-                        {content}
+        <div className="flex flex-col w-screen h-screen bg-gray-200 overflow-hidden">
+            <div className='flex flex-col h-full w-full object-scale-down'>
+                <div className=''>
+                    <div className='flex flex-col self-center items-center h-full justify-center '>
+                        <Image src={QuizTypes} alt="Quiz Types" width={200} height={200} className='ml-2 mt-2 items-center' />
                     </div>
                 </div>
-            </div>
-            <HostResult Correct={quizResult} correctAnswer={correctAnswer} />
-            <div className='absolute bottom-4 left-0'>
-                <div className="w-screen p-2 rounded-lg quiz-container">
-                    <ul className="grid grid-cols-2 answer-grid gap-2">
-                        {answers.map((answer, index) => {
-                            const isCorrectAnswer = index === correctAnswer;
-                            const opacity = isCorrectAnswer ? 1 : 0.25; // Adjust opacity as needed
-                            return (
-                                <li
-                                    key={index}
-                                    style={{
-                                        cursor: 'pointer',
-                                        opacity: opacity,
-                                    }}
-                                    className={`p-6 m-1  text-2xl font-bold text-white ${colors[index]} cursor-pointer `}
-                                >
-                                    <div className='flex flex-row'>
-                                        <Image src={svgs[index]} alt="SVG Icon" width={30} height={30} className='mr-2' />
-                                        {answer}
-                                    </div>
-                                </li>
-                            )
-                        })}
-                    </ul>
 
+                <div className='mt-5 '>
+                    <div className='flex flex-col self-center items-center h-full justify-center '>
+                        <div className='font-bold text-4xl text-center p-4 align-middle flex items-center bg-white'>
+                            {content}
+                        </div>
+                    </div>
                 </div>
 
+                <HostResult Correct={quizResult} correctAnswer={correctAnswer} />
+                <div className='mt-2'>
+                    <div className="w-screen p-2 rounded-lg quiz-container">
+                        <ul className="grid grid-cols-2 answer-grid gap-2">
+                            {answers.map((answer, index) => {
+                                const isCorrectAnswer = index === correctAnswer;
+                                const opacity = isCorrectAnswer ? 1 : 0.25; // Adjust opacity as needed
+                                return (
+                                    <li
+                                        key={index}
+                                        style={{
+                                            cursor: 'pointer',
+                                            opacity: opacity,
+                                        }}
+                                        className={`p-6 m-1  text-2xl font-bold text-white ${colors[index]} cursor-pointer `}
+                                    >
+                                        <div className='flex flex-row'>
+                                            <Image src={svgs[index]} alt="SVG Icon" width={30} height={30} className='mr-2' />
+                                            {answer}
+                                        </div>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
