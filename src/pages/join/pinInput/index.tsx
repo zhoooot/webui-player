@@ -15,7 +15,7 @@ const InputPinPage: React.FC = () => {
 
 
     // when submit button is onclick, move to page lobby
-    axios.get(`http://192.168.137.38:8080/api/game/check/${pin}`, {
+    axios.get(`http://192.168.1.22:8080/api/game/check/${pin}`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",

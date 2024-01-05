@@ -7,7 +7,7 @@ import router from "next/router";
 import { Socket } from "socket.io-client";
 import { Host } from "@/logic/host";
 import { Router } from "next/router";
-import { extractQuestion } from "./helper/host";
+import { extractQuestion, getNextQuestionIteration } from "./helper/host";
 
 const list: string | any[] = [
   { name: "a", score: 13 },
@@ -67,17 +67,17 @@ const Quizzes_Host = () => {
       console.log("Start event received", message);
     });
     socket?.on("skipped", (message: any) => {
-      setPhase(phase + 1);
+      setPhase(getNextQuestionIteration(phase));
     });
     socket?.on("ranking", (message: any) => {
-      console.log("Ranking event received", message);
+      setPhase(3);
     });
-    socket?.on("show-question", (message: any) => {
+    socket?.on("question", (message: any) => {
       const question = extractQuestion(message);
       setCurrentQuestion(question);
     });
     socket?.on("result", (message: any) => {
-      console.log("Result event received", message);
+      setPhase(2);
     });
     socket?.on("final-ranking", (message: any) => {
       router.replace("/gameover");
@@ -122,7 +122,7 @@ const Quizzes_Host = () => {
                 }}
                 next={() => {
                   if (typeof window !== "undefined") {
-                    socket?.emit("question-skip", {
+                    socket?.emit("skip", {
                       room: localStorage.getItem("hostpin") as string,
                     });
                   }
@@ -142,7 +142,7 @@ const Quizzes_Host = () => {
                     socket?.emit("ranking", {
                       room: localStorage.getItem("hostpin") as string,
                     });
-                    socket?.emit("show-question", {
+                    socket?.emit("question", {
                       room: localStorage.getItem("hostpin") as string,
                     });
                   }

@@ -4,7 +4,7 @@ export class ClientPlayer {
     public socketClient: Socket;
 
     constructor() {
-        this.socketClient = io('http://192.168.137.38:8080', { transports : ['websocket'] });
+        this.socketClient = io('http://192.168.1.22:8080', { transports : ['websocket'] });
         console.log("Entering...")
         this.socketClient.on('connect', () => {
             console.log('connected');

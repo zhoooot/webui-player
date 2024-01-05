@@ -15,3 +15,6 @@ export const extractQuestion = (data: any) => {
       }
 }
 
+export const getNextQuestionIteration = (currentIteration: number) =>  (currentIteration + 1) % 4;
+
+
