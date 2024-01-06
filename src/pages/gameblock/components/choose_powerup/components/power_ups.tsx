@@ -29,20 +29,29 @@ const Grid: React.FC<GridProps>=({powerupID, powerupUsed})=> {
   //get imageurl from on powerupused, if not used then add to a new array
   const imageUrlsNotUsed = [];
   const powerupIDNotUsed: number[] = [];
+  
   for (let i = 0; i < powerupUsed.length; ++i) {
     if (!powerupUsed[i]) {
       imageUrlsNotUsed.push(imageUrls[powerupID[i]]);
       powerupIDNotUsed.push(powerupID[i]);
     }
   }
-
+  console.log(powerupIDNotUsed);
   // onClick changed the value for powerupUsed
   const onClick = () => {
     for (let i=0; i<clickedButtons.length; ++i)
     {
       if (clickedButtons[i])
       {
-        powerupUsed[powerupIDNotUsed[i]]=true;
+        for (let j=0; j<powerupUsed.length; ++j)
+        {
+          if (powerupIDNotUsed[i]===powerupID[j])
+          {
+            powerupUsed[j]=true;
+            break;
+          }
+        }
+        break;
       }
     }
   }
@@ -85,7 +94,7 @@ const Grid: React.FC<GridProps>=({powerupID, powerupUsed})=> {
     <div>
       <div className="w-full grid justify-items-center">     
 
-        <div className={`inline-grid grid-cols-${powerupIDNotUsed.length} gap-4 align-middle justify-items-center items-center`}>
+        <div className={`flex justify-between gap-4 align-middle justify-items-center items-center`}>
         {imageUrlsNotUsed.map((imageUrl, index) => (
           <GridItem
             key={index}
