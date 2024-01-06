@@ -7,14 +7,8 @@ import Svg3 from '/public/images/answers/circle.svg';
 import Svg4 from '/public/images/answers/square.svg';
 import QuizTypes from 'public/images/quiz_types.svg';
 
-interface QuizData {
-  question: string;
-  answers: string[];
-  correctAnswer: number;
-}
-
 interface QuizProps {
-  quizData: QuizData;
+  quizData: IQuestion | null;
   onAnswerSelect: (selectedAnswer: number | null) => void;
 }
 const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500']
@@ -30,7 +24,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
     return null;
   }
 
-  const { question, answers, correctAnswer } = quizData;
+  const { content, options, correct_ans } = quizData;
 
   const handleAnswerClick = (index: number) => {
     setSelectedAnswer(index);
@@ -44,7 +38,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
       <div className="w-screen p-2 rounded-lg quiz-container">
         <div className='text-center text-xl font-bold m-2 pl-4 pr-4 pt-2 pb-2 bg-white w-2/4 break-all'>Question: {question}</div>
         <ul className="grid grid-cols-2 answer-grid gap-2">
-          {answers.map((answer, index) => (
+          {options.map((option, index) => (
             <li
               key={index}
               onClick={() => handleAnswerClick(index)}
@@ -53,7 +47,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
             >
               <div className='flex flex-row'>
                 <Image src={svgs[index]} alt="SVG Icon" width={30} height={30} className='mr-2' />
-                {answer}
+                {option}
               </div>
             </li>
           ))}

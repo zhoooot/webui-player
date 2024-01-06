@@ -139,9 +139,6 @@ const Quizzes_Host = () => {
               <Phase3
                 next={() => {
                   if (typeof window !== "undefined") {
-                    socket?.emit("ranking", {
-                      room: localStorage.getItem("hostpin") as string,
-                    });
                     socket?.emit("question", {
                       room: localStorage.getItem("hostpin") as string,
                     });

@@ -1,4 +1,4 @@
-export const extractQuestion = (data: any) => {
+export const extractQuestion = (data: any) : IQuestion => {
     const { partyid, question } = data;
       const { content, time, allow_power, url, answers, correct_answer } = question;
       let answers_list: string[] = [];
@@ -8,10 +8,10 @@ export const extractQuestion = (data: any) => {
       }
       return {
         content: content,
-        answers: answers_list,
-        correctAnswer: correct_answer,
+        options: answers_list,
+        correct_ans: correct_answer,
         time: time,
-        permit: allow_power,
+        allow_power: allow_power,
       }
 }
 
