@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PlayerBar from './playerbar';
 import Image from 'next/image';
 import Svg1 from '/public/images/answers/triangle.svg';
 import Svg2 from '/public/images/answers/diamond.svg';

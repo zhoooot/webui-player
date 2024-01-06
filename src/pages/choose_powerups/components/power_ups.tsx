@@ -20,7 +20,10 @@ const Grid = () => {
 
   // State to track the clicked status of each button
   const [clickedButtons, setClickedButtons] = useState(Array(imageUrls.length).fill(false));
-
+  // if name is not set, then set to shut the fuk up
+  
+  const name = localStorage.getItem("username") || "shut the fuk up"; 
+  
   const handleClick = (index: number) => {
     const updatedClickedButtons = clickedButtons.map((value, ind) => {
       if (index === ind) {
@@ -62,7 +65,7 @@ const Grid = () => {
         ))}
       </div>
     </div>
-    <PlayerBar index={getNumbPowerUp(clickedButtons)} name='Shut the fuk up'/>
+    <PlayerBar index={getNumbPowerUp(clickedButtons)} name={name}/>
     </div>
   );
 };

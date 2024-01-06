@@ -10,29 +10,29 @@ const InputPinPage: React.FC = () => {
   const handlePinSubmit = (pin: string) => {
     // Handle the submitted PIN (e.g., check it against the correct PIN).
     console.log("Submitted PIN:", pin);
-
+    router.push('/join/nameInput');
     // Add your game logic here.
 
 
     // when submit button is onclick, move to page lobby
-    axios.get(`http://192.168.1.22:8080/api/game/check/${pin}`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
-      console.log(res.data);
-      if (res.data) {
-        router.push({
-          pathname: "../join/nameInput",
-          query: { pin: pin },
-        });
-      } else {
-        alert("Wrong pin");
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
+    // axios.get(`http://192.168.1.22:8080/api/game/check/${pin}`, {
+    //   headers: {
+    //     "Access-Control-Allow-Origin": "*",
+    //     "Content-Type": "application/json",
+    //   },
+    // }).then((res) => {
+    //   console.log(res.data);
+    //   if (res.data) {
+    //     router.push({
+    //       pathname: "../join/nameInput",
+    //       query: { pin: pin },
+    //     });
+    //   } else {
+    //     alert("Wrong pin");
+    //   }
+    // }).catch((err) => {
+    //   console.log(err);
+    // });
   };
 
   return (

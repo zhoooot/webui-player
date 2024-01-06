@@ -18,6 +18,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
 
   // Array of SVGs
   const svgs = [Svg1, Svg2, Svg3, Svg4];
+  const name=localStorage.getItem("username") || "shut the fuk up";
 
   // Check if quizData is defined before destructuring its properties
   if (!quizData) {
@@ -31,7 +32,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
     onAnswerSelect(index);
     
   };
-  console.log('okay');
+  
   return (
     <div className="flex flex-col w-screen h-screen bg-gray-200">
       
@@ -56,7 +57,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
         
       </div>
       <div className='bg-white'>
-        <PlayerBar name="Player 1" point={2222} />
+        <PlayerBar name={name} point={2222} />
       </div>
       </div>
     </div>

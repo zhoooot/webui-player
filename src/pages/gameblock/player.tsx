@@ -35,6 +35,7 @@ const Quizzes_Player = () => {
   const handleAnswerSelect = (selectedAnswer: number | null) => {
     setSelection(selectedAnswer as number);
   };
+  const name=localStorage.getItem("username") || "shut the fuk up";
 
   useEffect(() => {
     if (Phase) {
@@ -86,7 +87,7 @@ const Quizzes_Player = () => {
                       setSelection(0);
                     }}
                   />
-                  <PlayerBar point={2222} name="Player 1" />
+                  <PlayerBar point={2222} name={name} />
                 </div>
               </div>
             </div>
@@ -116,7 +117,7 @@ const Quizzes_Player = () => {
               {(selection && !timeUp) ? (
                 <Loading
                   point={2222}
-                  name={"shut the fuk up"}
+                  name={name}
                   index={currentQuestion + 1}
                 />
               ) : (
