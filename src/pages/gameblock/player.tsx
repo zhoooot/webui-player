@@ -10,7 +10,8 @@ import { Host } from "@/logic/host";
 import { Socket } from "socket.io-client";
 import { Player } from "@/logic/player";
 import { extractQuestion } from "./helper/host";
-
+import IQuestion from "./interface/iquestion";
+import ChoosePowerUp from "./components/choose_powerup";
 const quiz= {
   content: "What is the capital of Thailand?",
   options: ["Bangkok", "Hanoi", "Jakarta", "Manila"],
@@ -19,11 +20,12 @@ const quiz= {
   allow_power: true,
 };
 
-
+const powerupID = [0, 1, 2, 3];
+var powerupUsed = [false, false, false, false];
 const Quizzes_Player = () => {
   const [timeUp, setTimeUp] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [gameQuestion, setGameQuestion] = useState<IQuestion | null>(null);
+  const [gameQuestion, setGameQuestion] = useState<IQuestion | null>(quiz);
   const [remainingTime, setRemainingTime] = useState(5);
   const [selection, setSelection] = useState(0);
   const [Phase, setPhase] = useState(0);
@@ -35,7 +37,9 @@ const Quizzes_Player = () => {
   const handleAnswerSelect = (selectedAnswer: number | null) => {
     setSelection(selectedAnswer as number);
   };
-  const name=localStorage.getItem("username") || "shut the fuk up";
+  const name=
+  // localStorage.getItem("username") ||
+   "shut the fuk up";
 
   useEffect(() => {
     if (Phase) {
@@ -83,7 +87,7 @@ const Quizzes_Player = () => {
                   <TimeBar
                     duration={5000}
                     onFinished={() => {
-                      setPhase(1);
+                      setPhase(0.5);
                       setSelection(0);
                     }}
                   />
@@ -91,6 +95,28 @@ const Quizzes_Player = () => {
                 </div>
               </div>
             </div>
+          )}
+          {/*Phase 1.5*/}
+          {Phase === 0.5 && (
+            <>
+              <div className="absolute top-10 left-10">
+                <CountdownCircleTimer
+                  key={timerKey}
+                  isPlaying
+                  duration={remainingTime}
+                  size={50}
+                  strokeWidth={10}
+                  colors={"#A30000"}
+                  onComplete={() => {
+                    
+                    setPhase(1);
+                  }}
+                >
+                  {({ remainingTime }) => remainingTime}
+                </CountdownCircleTimer>
+              </div>
+              <ChoosePowerUp powerupID={powerupID} powerupUsed={powerupUsed} />
+            </>
           )}
           {/*Phase 2*/}
           {Phase === 1 && (
@@ -107,7 +133,7 @@ const Quizzes_Player = () => {
                     console.log("time up");
                     setTimeUp(true);
                     
-                    // setPhase(2);
+                    setPhase(2);
                   }}
                 >
                   {({ remainingTime }) => remainingTime}
@@ -142,7 +168,9 @@ const Quizzes_Player = () => {
                   colors={"#A30000"}
                   onComplete={() => {
                     setSelection(0);
+                    setTimeUp(false);
                     setPhase(0);
+                    
                   }}
                 >
                   {({ remainingTime }) => remainingTime}

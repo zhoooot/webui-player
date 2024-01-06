@@ -4,7 +4,7 @@ import Host from './host';
 
 const GameBlock: React.FC = () => {
   const role = 
-  localStorage.getItem('role') || 
+  // localStorage.getItem('role') || 
   'user';
 
   return (

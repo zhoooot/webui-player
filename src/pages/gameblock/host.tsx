@@ -8,6 +8,8 @@ import { Socket } from "socket.io-client";
 import { Host } from "@/logic/host";
 import { Router } from "next/router";
 import { extractQuestion, getNextQuestionIteration } from "./helper/host";
+import  IQuestion  from './interface/iquestion'; // Import the missing type
+
 
 const list: string | any[] = [
   { name: "a", score: 13 },
@@ -30,6 +32,7 @@ const list: string | any[] = [
 
 
 const Quizzes_Host = () => {
+
   const [currentQuestion, setCurrentQuestion] = useState<IQuestion | null>(null);
   const [phase, setPhase] = useState(0);
   const [socket, setSocket] = useState<Socket | null>(null);

@@ -1,7 +1,7 @@
 import React from 'react';
 import Quiz from './mini_components/quiz_host_1';
 import Next from './mini_components/next_button';
-
+import IQuestion from '../interface/iquestion';
 interface QuizData {
     content: string;
     answers: string[];

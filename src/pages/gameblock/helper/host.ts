@@ -1,3 +1,4 @@
+import IQuestion from "../interface/iquestion";
 export const extractQuestion = (data: any) : IQuestion => {
     const { partyid, question } = data;
       const { content, time, allow_power, url, answers, correct_answer } = question;
@@ -16,5 +17,3 @@ export const extractQuestion = (data: any) : IQuestion => {
 }
 
 export const getNextQuestionIteration = (currentIteration: number) =>  (currentIteration + 1) % 4;
-
-

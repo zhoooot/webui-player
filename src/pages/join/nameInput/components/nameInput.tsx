@@ -16,6 +16,7 @@ const NameInput: React.FC<NameInputProps> = ({ onSubmit }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(name);
+    localStorage.setItem("username", name);
   };
 
   return (
