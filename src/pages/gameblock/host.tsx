@@ -29,13 +29,7 @@ const list: string | any[] = [
 ];
 
 const Quizzes_Host = () => {
-  const [currentQuestion, setCurrentQuestion] = useState({
-    content: router.query.content as string,
-    answers: router.query.answers as string[],
-    correctAnswer: parseInt(router.query.correct_answer as string),
-    time: parseInt(router.query.time as string),
-    permit: (router.query.allow_power as string) === "true",
-  });
+  const [currentQuestion, setCurrentQuestion] = useState<IQuestion | null>(null);
   const [phase, setPhase] = useState(0);
   const [socket, setSocket] = useState<Socket | null>(null);
 
@@ -98,7 +92,7 @@ const Quizzes_Host = () => {
           {phase === 0 && (
             <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200">
               <div className="font-bold text-4xl text-center h-full align-middle flex items-center">
-                {currentQuestion.content}
+                {currentQuestion?.content}
               </div>
               <div className="self-end w-full h-auto mb-8">
                 <div className="col items-center justify-center">
@@ -127,7 +121,7 @@ const Quizzes_Host = () => {
                     });
                   }
                 }}
-                duration={currentQuestion.time}
+                duration={(currentQuestion?.time) ? currentQuestion.time : 0}
                 quizData={currentQuestion}
               />
             </>
@@ -137,13 +131,7 @@ const Quizzes_Host = () => {
           {phase === 2 && (
             <div>
               <Phase3
-                next={() => {
-                  if (typeof window !== "undefined") {
-                    socket?.emit("question", {
-                      room: localStorage.getItem("hostpin") as string,
-                    });
-                  }
-                }}
+                next={() => {}}
                 duration={5}
                 quizData={currentQuestion}
                 quizResult={[4, 3, 2, 5]}
@@ -156,6 +144,11 @@ const Quizzes_Host = () => {
             <div>
               <Phase4
                 next={() => {
+                  if (typeof window !== "undefined") {
+                    socket?.emit("question", {
+                      room: localStorage.getItem("hostpin") as string,
+                    });
+                  }
                   setPhase(0);
                 }}
                 list={list}

@@ -13,7 +13,7 @@ interface QuizData {
 interface Phase3Props {
   next: () => void;
   duration: number; 
-  quizData: QuizData;
+  quizData: IQuestion | null;
   quizResult: number[];
 }
 

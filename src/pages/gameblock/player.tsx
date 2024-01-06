@@ -12,6 +12,7 @@ import { Player } from "@/logic/player";
 import { extractQuestion } from "./helper/host";
 
 const Quizzes_Player = () => {
+  const [timeUp, setTimeUp] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [gameQuestion, setGameQuestion] = useState<IQuestion | null>(null);
   const [remainingTime, setRemainingTime] = useState(5);
@@ -43,7 +44,7 @@ const Quizzes_Player = () => {
   }, []);
 
   useEffect(() => {
-    socket?.on("player-question", (message: any) => {
+    socket?.on("question", (message: any) => {
       const question = extractQuestion(message);
       setGameQuestion(question);
     });
@@ -90,7 +91,7 @@ const Quizzes_Player = () => {
                   strokeWidth={10}
                   colors={"#A30000"}
                   onComplete={() => {
-                    setSelected(true);
+                    setTimeUp(true);
                     setPhase(2);
                   }}
                 >
@@ -98,7 +99,7 @@ const Quizzes_Player = () => {
                 </CountdownCircleTimer>
               </div>
 
-              {selection != 0 ? (
+              {(selection && !timeUp) ? (
                 <Loading
                   point={2222}
                   name={"shut the fuk up"}

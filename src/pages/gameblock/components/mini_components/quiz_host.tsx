@@ -16,7 +16,7 @@ interface QuizData {
 }
 
 interface QuizProps {
-  quizData: QuizData;
+  quizData: IQuestion | null;
 }
 const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500']
 
@@ -31,7 +31,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData}) => {
     return null;
   }
 
-  const { content, answers, correctAnswer, time, permit } = quizData;
+  const { content, options, correct_ans, time, allow_power } = quizData;
 
   
 
@@ -48,7 +48,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData}) => {
       <div className='absolute bottom-4 left-0'>
       <div className="w-screen p-2 rounded-lg quiz-container">
         <ul className="grid grid-cols-2 answer-grid gap-2">
-          {answers.map((answer, index) => (
+          {options.map((option, index) => (
             <li
               key={index}
               style={{ cursor: 'pointer' }}
@@ -56,7 +56,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData}) => {
             >
               <div className='flex flex-row'>
                 <Image src={svgs[index]} alt="SVG Icon" width={30} height={30} className='mr-2' />
-                {answer}
+                {option}
               </div>
             </li>
           ))}

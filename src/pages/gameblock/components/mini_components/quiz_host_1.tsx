@@ -18,7 +18,7 @@ interface QuizData {
 }
 
 interface QuizProps {
-    quizData: QuizData;
+    quizData: IQuestion | null;
     quizResult: number[];
     next: () => void;
 
@@ -36,7 +36,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, quizResult, next}) => {
         return null;
     }
 
-    const { content, answers, correctAnswer, time, permit } = quizData;
+    const { content, options, correct_ans, time, allow_power } = quizData;
     
 
 
@@ -55,12 +55,12 @@ const Quiz: React.FC<QuizProps> = ({ quizData, quizResult, next}) => {
                     </div>
                 </div>
 
-                <HostResult Correct={quizResult} correctAnswer={correctAnswer} />
+                <HostResult Correct={quizResult} correctAnswer={correct_ans} />
                 <div className='mt-2 absolute left-0 bottom-0'>
                     <div className="w-screen p-2 rounded-lg quiz-container">
                         <ul className="grid grid-cols-2 answer-grid gap-2">
-                            {answers.map((answer, index) => {
-                                const isCorrectAnswer = index === correctAnswer;
+                            {options.map((option, index) => {
+                                const isCorrectAnswer = index === correct_ans;
                                 const opacity = isCorrectAnswer ? 1 : 0.25; // Adjust opacity as needed
                                 return (
                                     <li
@@ -73,7 +73,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, quizResult, next}) => {
                                     >
                                         <div className='flex flex-row'>
                                             <Image src={svgs[index]} alt="SVG Icon" width={30} height={30} className='mr-2' />
-                                            {answer}
+                                            {option}
                                         </div>
                                     </li>
                                 )

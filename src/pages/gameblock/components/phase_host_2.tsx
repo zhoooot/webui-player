@@ -15,7 +15,7 @@ interface Phase2Props {
     onComplete: () => void;
     next: () => void;
     duration: number;
-    quizData: QuizData; // Use the imported QuizData type
+    quizData: IQuestion | null; // Use the imported QuizData type
 }
 
 const Phase2: React.FC<Phase2Props> = ({ onComplete, next, duration, quizData }) => {

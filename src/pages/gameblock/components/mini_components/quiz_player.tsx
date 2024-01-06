@@ -36,7 +36,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
       
       <div className='absolute bottom-0 left-0'>
       <div className="w-screen p-2 rounded-lg quiz-container">
-        <div className='text-center text-xl font-bold m-2 pl-4 pr-4 pt-2 pb-2 bg-white w-2/4 break-all'>Question: {question}</div>
+        <div className='text-center text-xl font-bold m-2 pl-4 pr-4 pt-2 pb-2 bg-white w-2/4 break-all'>Question: {content}</div>
         <ul className="grid grid-cols-2 answer-grid gap-2">
           {options.map((option, index) => (
             <li
