@@ -20,7 +20,7 @@ interface QuizProps {
 }
 const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500']
 
-const Quiz: React.FC<QuizProps> = ({ quizData}) => {
+const Quiz: React.FC<QuizProps> = ({ quizData }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
   // Array of SVGs
@@ -33,37 +33,34 @@ const Quiz: React.FC<QuizProps> = ({ quizData}) => {
 
   const { content, options, correct_ans, time, allow_power } = quizData;
 
-  
+
 
   return (
     <div className="flex flex-col w-screen h-screen bg-gray-200">
+
       
-      <div className='absolute top-0 left-0 right-0 bottom-0 m-2  '>
-        <div className='flex flex-col self-center items-center h-full justify-center '>
-          <div className='font-bold text-2xl text-center p-4 align-middle flex items-center bg-white w-2/4 break-all'>
-            {content}
-          </div>
-        </div>
-        </div>
       <div className='absolute bottom-4 left-0'>
-      <div className="w-screen p-2 rounded-lg quiz-container">
-        <ul className="grid grid-cols-2 answer-grid gap-2">
-          {options.map((option, index) => (
-            <li
-              key={index}
-              style={{ cursor: 'pointer' }}
-              className={`p-6 m-1  text-2xl font-bold text-white ${colors[index]} cursor-pointer opacity-8 hover:opacity-100`}
-            >
-              <div className='flex flex-row'>
-                <Image src={svgs[index]} alt="SVG Icon" width={30} height={30} className='mr-2' />
-                {option}
-              </div>
-            </li>
-          ))}
-        </ul>
-        
-      </div>
-      
+        <div className="w-screen p-2 flex flex-col rounded-lg quiz-container">
+          <div className='font-bold text-2xl self-center text-center p-4 align-middle mb-4 bg-white w-2/4 break-all'>
+          {content}
+        </div>
+          <ul className="grid grid-cols-2 answer-grid gap-2">
+            {options.map((option, index) => (
+              <li
+                key={index}
+                style={{ cursor: 'pointer' }}
+                className={`p-6 m-1  text-2xl font-bold text-white ${colors[index]} cursor-pointer opacity-8 hover:opacity-100`}
+              >
+                <div className='flex flex-row'>
+                  <Image src={svgs[index]} alt="SVG Icon" width={30} height={30} className='mr-2' />
+                  {option}
+                </div>
+              </li>
+            ))}
+          </ul>
+
+        </div>
+
       </div>
     </div>
 

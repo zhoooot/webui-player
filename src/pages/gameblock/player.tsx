@@ -11,6 +11,15 @@ import { Socket } from "socket.io-client";
 import { Player } from "@/logic/player";
 import { extractQuestion } from "./helper/host";
 
+const quiz= {
+  content: "What is the capital of Thailand?",
+  options: ["Bangkok", "Hanoi", "Jakarta", "Manila"],
+  correct_ans: 1,
+  time: 5,
+  allow_power: true,
+};
+
+
 const Quizzes_Player = () => {
   const [timeUp, setTimeUp] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -55,7 +64,10 @@ const Quizzes_Player = () => {
       //TODO
     });
   });
-
+  console.log(selection);
+  console.log(timeUp);
+  
+  // console.log(Phase);
   return (
     <div>
         <div>
@@ -71,6 +83,7 @@ const Quizzes_Player = () => {
                     duration={5000}
                     onFinished={() => {
                       setPhase(1);
+                      setSelection(0);
                     }}
                   />
                   <PlayerBar point={2222} name="Player 1" />
@@ -78,7 +91,6 @@ const Quizzes_Player = () => {
               </div>
             </div>
           )}
-
           {/*Phase 2*/}
           {Phase === 1 && (
             <>
@@ -91,8 +103,10 @@ const Quizzes_Player = () => {
                   strokeWidth={10}
                   colors={"#A30000"}
                   onComplete={() => {
+                    console.log("time up");
                     setTimeUp(true);
-                    setPhase(2);
+                    
+                    // setPhase(2);
                   }}
                 >
                   {({ remainingTime }) => remainingTime}

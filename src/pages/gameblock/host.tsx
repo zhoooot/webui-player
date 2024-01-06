@@ -28,6 +28,7 @@ const list: string | any[] = [
   { name: "p", score: 163 },
 ];
 
+
 const Quizzes_Host = () => {
   const [currentQuestion, setCurrentQuestion] = useState<IQuestion | null>(null);
   const [phase, setPhase] = useState(0);
@@ -120,6 +121,7 @@ const Quizzes_Host = () => {
                       room: localStorage.getItem("hostpin") as string,
                     });
                   }
+                  // setPhase(2);
                 }}
                 duration={(currentQuestion?.time) ? currentQuestion.time : 0}
                 quizData={currentQuestion}
@@ -131,7 +133,7 @@ const Quizzes_Host = () => {
           {phase === 2 && (
             <div>
               <Phase3
-                next={() => {}}
+                next={() => {setPhase(3)}}
                 duration={5}
                 quizData={currentQuestion}
                 quizResult={[4, 3, 2, 5]}
@@ -149,7 +151,7 @@ const Quizzes_Host = () => {
                       room: localStorage.getItem("hostpin") as string,
                     });
                   }
-                  setPhase(0);
+                  // setPhase(0);
                 }}
                 list={list}
               />

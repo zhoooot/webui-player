@@ -29,14 +29,15 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
   const handleAnswerClick = (index: number) => {
     setSelectedAnswer(index);
     onAnswerSelect(index);
+    
   };
-
+  console.log('okay');
   return (
     <div className="flex flex-col w-screen h-screen bg-gray-200">
       
       <div className='absolute bottom-0 left-0'>
-      <div className="w-screen p-2 rounded-lg quiz-container">
-        <div className='text-center text-xl font-bold m-2 pl-4 pr-4 pt-2 pb-2 bg-white w-2/4 break-all'>Question: {content}</div>
+      <div className="w-screen p-2 rounded-lg flex flex-col quiz-container">
+        <div className='text-center  text-2xl mb-4 self-center font-bold m-2 pl-4 pr-4 pt-2 pb-2 bg-white w-2/4 break-all'>Question: {content}</div>
         <ul className="grid grid-cols-2 answer-grid gap-2">
           {options.map((option, index) => (
             <li
