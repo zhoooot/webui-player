@@ -26,7 +26,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData }) => {
 
   // Check if quizData is defined before destructuring its properties
   if (!quizData) {
-    return null;
+    return <div>Oops! There&apos; nothing in here</div>;
   }
 
   const { content, options, correct_ans, time, allow_power } = quizData;
