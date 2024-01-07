@@ -1,5 +1,5 @@
 // pages/game.tsx
-import React from "react";
+import React, {useState, useEffect} from "react";
 import NameInput from "./components/nameInput";
 import Image from "next/image";
 import Image0 from "/public/images/app_logo.svg";
@@ -7,11 +7,16 @@ import router from "next/router";
 import axios from "axios";
 
 const InputNamePage: React.FC = () => {
+  const [isValid, setIsValid] = useState(true);
+  const [isDuplicate, setIsDuplicate] = useState(true);
 
   const handleNameSubmit = (name: string) => {
     // Handle the submitted PIN (e.g., check it against the correct PIN).
     console.log("Submitted Name:", name);
-
+    if (!name) {
+      setIsValid(false);
+      return;
+    } else setIsValid(true);
     // Add your game logic here.
     localStorage.setItem("pin", router.query.pin as string)
     localStorage.setItem("username", name);
@@ -32,6 +37,14 @@ const InputNamePage: React.FC = () => {
             <NameInput onSubmit={handleNameSubmit} />
           </div>
         </div>
+        {(!isValid) ? (
+          <>
+          <div className="absolute bottom-0 w-full h-16 bg-red-500">
+           <div className="font-bold text-white text-lg p-4 text-center "> Please enter a name</div>
+          </div></>
+        ) : (
+          <></>
+        )}
       </div>
   );
 };
