@@ -101,7 +101,7 @@ const Quizzes_Host = () => {
               <div className="self-end w-full h-auto mb-8">
                 <div className="col items-center justify-center">
                   <TimeBar
-                    duration={5000}
+                    duration={10000}
                     onFinished={() => {
                       setPhase(1);
                     }}
