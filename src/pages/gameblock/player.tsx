@@ -12,6 +12,7 @@ import { Player } from "@/logic/player";
 import { extractQuestion } from "./helper/host";
 import IQuestion from "./interface/iquestion";
 import ChoosePowerUp from "./components/choose_powerup";
+import RankUser from "../before_final";
 const quiz= {
   content: "What is the capital of Thailand?",
   options: ["Bangkok", "Hanoi", "Jakarta", "Manila"],
@@ -181,6 +182,11 @@ const Quizzes_Player = () => {
                 isCorrect={result}
                 plusPoint={point}
               />
+            </div>
+          )}
+          {Phase === 4 && (
+            <div>
+              <RankUser points={point}></RankUser>
             </div>
           )}
         </div>

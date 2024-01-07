@@ -4,7 +4,9 @@ import Leaderboards  from './components/leaderboards';
 import PlayerBar from './components/playerbar';
 
 const GameOverPage: React.FC = () => {
-  const name=localStorage.getItem("username") || "shut the fuk up";
+  const name=
+  // localStorage.getItem("username") || 
+  "shut the fuk up";
 
   return (
     <div>
