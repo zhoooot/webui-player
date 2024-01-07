@@ -25,6 +25,7 @@ const config: Config = {
       animation: {
         'spin-slow': 'spin 5s linear infinite',
         'fade-in': 'fadeIn 1s ease-in-out',
+        'blink': 'blink 1s infinite',
       },
       keyframes: {
         'spin-opacity': {
@@ -35,6 +36,10 @@ const config: Config = {
         'fade-in': {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        'blink': {
+          '0%, 100%': { 'opacity': '1' },
+          '50%': { 'opacity': '0' },
         },
       },
       
