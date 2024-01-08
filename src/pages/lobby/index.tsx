@@ -212,7 +212,7 @@ const Lobby = () => {
           <span className="flex flex-row">
             <Image src={Image0} alt="SVG Icon" className="mr-2" width={20} height={20} />
             <span className="text-base font-semibold grow">Randomize order of answers</span>
-            <input type="checkbox" className=" toggle toggle-success" />
+            <input type="checkbox" className=" toggle toggle-success" onChange={()=>{console.log('shutthefukup')}}/>
           </span>
           <div className="font-bold text-2xl mt-5 mb-2">Theme</div>
           <div className="grid overflow-x-scroll p-2">
