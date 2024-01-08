@@ -22,7 +22,9 @@ const Grid = () => {
   const [clickedButtons, setClickedButtons] = useState(Array(imageUrls.length).fill(false));
   // if name is not set, then set to shut the fuk up
   
-  const name = localStorage.getItem("username") || "shut the fuk up"; 
+  const name = 
+  // localStorage.getItem("username") || 
+  "shut the fuk up"; 
   
   const handleClick = (index: number) => {
     const updatedClickedButtons = clickedButtons.map((value, ind) => {

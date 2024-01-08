@@ -15,13 +15,19 @@ const PlayerBar: React.FC<PlayerProps> = ({ index, name }) => {
   const handleClick = () => {
     console.log("Button clicked");
 
-    if (socket)
-      socket.emit("join", {
-        room: localStorage.getItem("pin"),
-        username: localStorage.getItem("username"),
-      });
-
-    router.push("../get-ready");
+    
+      if (index == 0) {
+        const userResponse = window.confirm("You have not chosen any power-ups. Want to skip?")
+        if (userResponse) {
+          if (socket)
+            socket.emit("join", {
+              room: localStorage.getItem("pin"),
+              username: localStorage.getItem("username"),
+            });
+  
+          router.push("../get-ready");
+        }
+      }
   };
 
   useEffect(() => {

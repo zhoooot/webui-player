@@ -21,6 +21,10 @@ let first_question = {
 const Lobby = () => {
   const router = useRouter();
 
+  const onClick = (index: number) => {
+    console.log("Button clicked");
+    router.push("../get-ready");
+  }
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
@@ -104,24 +108,24 @@ const Lobby = () => {
   };
 
   return (
-    <div className="bg-yellow-100 flex flex-col h-screen justify-start items-center">
+    <div className="bg-base-200 flex  flex-col h-screen justify-start items-center">
       {/* Headline*/}
-      <div className="flex flex-row justify-between items-center gap-2">
+      <div className="flex flex-row justify-between mt-4 items-center gap-2">
         <Ad />
-        <Pin pin={pin} />
+        <Pin pin={"000000"} />
         <div className="flex flex-col items-center justify-between h-full w-36 gap-3">
           <div className="flex flex-row justify-between h-full w-full gap-2">
             <PlayerCount count={players.length} />
-            <Setting onClick={() => {}} />
+            <Setting onClick={() => { }} />
           </div>
           <Start onClick={handleStart} />
         </div>
       </div>
 
       {/* Body */}
-      <div className="flex flex-wrap p-4 gap-3 justify-center items-start bg-gray-500 mt-10 w-11/12">
-        {players.map((player) => (
-          <Player key={player} name={player} />
+      <div className="flex flex-row p-4 justify-center items-start mt-10 w-11/12">
+        {players.map((players) => (
+          <Player key={players} name={players} />
         ))}
       </div>
     </div>
