@@ -123,7 +123,7 @@ const Lobby = () => {
 
   }
   return (
-    <div className="bg-base-200 flex  flex-col h-screen justify-start items-center">
+    <div className="bg-base-300 flex flex-col h-screen justify-start items-center">
       {/* Headline*/}
       <div className="flex flex-row justify-between mt-4 items-center gap-2">
         <Ad />

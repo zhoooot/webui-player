@@ -12,7 +12,7 @@ const Setting: React.FC<SettingProps> = ({ onClick }) => {
     // Add a class to trigger the scale transition on mount after a delay
       setTimeout(() => {
         setIsVisible(true)
-      }, 1200);
+      }, 9200);
   }, []);
 
   return (
