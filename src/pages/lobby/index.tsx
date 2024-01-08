@@ -20,12 +20,15 @@ let first_question = {
 
 const Lobby = () => {
   const router = useRouter();
-
+  const [isVisible, setIsVisible] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    const newSocket = Host.getHostClient().socketClient;
+    setTimeout(() => {
+      setIsVisible(true)
+    }, 1000);
 
+    const newSocket = Host.getHostClient().socketClient;
     newSocket.on("connect", () => {
       console.log("Connected to socket server");
       newSocket.emit("host", {
@@ -44,6 +47,8 @@ const Lobby = () => {
   const [players, setPlayers] = useState<string[]>([]);
 
   useEffect(() => {
+
+
     socket?.on("join", (message: any) => {
       console.log("Join event received", message);
       setPlayers([...players, message.username]);
@@ -104,7 +109,7 @@ const Lobby = () => {
   };
 
   return (
-    <div className="bg-yellow-100 flex flex-col h-screen justify-start items-center">
+    <div className="bg-yellow-100 flex flex-col p-2 h-screen justify-start items-center">
       {/* Headline*/}
       <div className="flex flex-row justify-between items-center gap-2">
         <Ad />
@@ -119,7 +124,7 @@ const Lobby = () => {
       </div>
 
       {/* Body */}
-      <div className="flex flex-wrap p-4 gap-3 justify-center items-start bg-gray-500 mt-10 w-11/12">
+      <div className={isVisible? "transition-all opacity-75 duration-[1500ms] flex flex-wrap p-4 h-full gap-3 justify-center items-start bg-yellow-200 mt-10 w-11/12" : "transform translate-y-[100vh] opacity-0 flex flex-wrap p-4 h-full gap-3 justify-center items-start bg-yellow-200 mt-10 w-11/12"}>
         {players.map((player) => (
           <Player key={player} name={player} />
         ))}
