@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
+import Image0 from '/public/icons/Gear.png';
+import Image from 'next/image';
 interface SettingProps {
   onClick?: () => void; 
 }
@@ -19,7 +20,7 @@ const Setting: React.FC<SettingProps> = ({ onClick }) => {
       className={isVisible? 'transition-transform scale-100 duration-700 flex items-center justify-center hover:bg-gray-800 rounded-lg bg-black h-full w-full' : 'transform scale-[0] flex items-center justify-center hover:bg-gray-800 rounded-lg bg-black h-full w-full'} 
       onClick={onClick} 
       style={{ cursor: 'pointer' }}>
-        <img src='/icons/Gear.png' alt='setting' className='h-4 w-4'/>
+        <Image src={Image0} alt='setting' width={20} height={20} className='mx-5'/>
     </div>
   );
 };

@@ -18,7 +18,9 @@ let first_question = {
   permit: false,
 };
 
+const players = ['name', 'name'];
 const Lobby = () => {
+  const [isNew, setIsNew] = useState("");
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -52,6 +54,7 @@ const Lobby = () => {
     socket?.on("join", (message: any) => {
       console.log("Join event received", message);
       setPlayers([...players, message.username]);
+      setIsNew(message.username);
     });
     socket?.on("host", (message: any) => {
       // console.log('Host event received', message)
@@ -107,27 +110,39 @@ const Lobby = () => {
       console.log("Socket is null");
     }
   };
+  const onClickRemove = (index: number) => {
+    const userRespose = window.confirm("Are you sure you want to remove this player?");
+    if (userRespose) {
+      setIsNew("");
 
+      const newPlayers = players.filter((_, i) => i !== index);
+
+      // Update the players state with the new array
+      setPlayers(newPlayers);
+    }
+
+  }
   return (
-    <div className="bg-yellow-100 flex flex-col p-2 h-screen justify-start items-center">
+    <div className="bg-base-200 flex  flex-col h-screen justify-start items-center">
       {/* Headline*/}
-      <div className="flex flex-row justify-between items-center gap-2">
+      <div className="flex flex-row justify-between mt-4 items-center gap-2">
         <Ad />
         <Pin pin={pin} />
         <div className="flex flex-col items-center justify-between h-full w-36 gap-3">
           <div className="flex flex-row justify-between h-full w-full gap-2">
             <PlayerCount count={players.length} />
-            <Setting onClick={() => {}} />
+            <Setting onClick={() => { }} />
           </div>
           <Start onClick={handleStart} />
         </div>
       </div>
 
       {/* Body */}
-      <div className={isVisible? "transition-all opacity-75 duration-[1500ms] flex flex-wrap p-4 h-full gap-3 justify-center items-start bg-yellow-200 mt-10 w-11/12" : "transform translate-y-[100vh] opacity-0 flex flex-wrap p-4 h-full gap-3 justify-center items-start bg-yellow-200 mt-10 w-11/12"}>
-        {players.map((player) => (
-          <Player key={player} name={player} />
+      <div className="flex flex-row p-4 justify-center items-start mt-10 w-11/12">
+        {players.map((player, index) => (
+          <Player key={player} name={player} new_member={isNew} onClick1={() => onClickRemove(index)} index={index} />
         ))}
+
       </div>
     </div>
   );

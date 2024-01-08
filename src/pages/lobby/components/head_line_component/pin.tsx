@@ -20,13 +20,17 @@ const Pin: React.FC<PinProps> = ({ pin }) => {
   return (
     <div
       id="pin-element"
-      className={isVisible? "bg-white transition-transform scale-100 duration-[1500ms] rounded-lg p-4 flex flex-col h-full items-start justify-center text-black" : "transform scale-[0] p-4"}
+      className={isVisible? "bg-white transition-transform scale-100 duration-[1500ms] rounded-lg w-4/6 text-black justify-center flex" : "transform scale-[0] p-4"}
     >
-      <b className='text-xs'>Game PIN:</b>
-      <b className='text-3xl'> {pin}</b>
+      <div className='flex flex-col item-start justify-center py-2'>
+        <b className='text-sm font-bold'>Game PIN:</b>
+        <b className='text-4xl tracking-wide font-black'> {pin}</b>
+      </div>
     </div>
   );
 };
+
+
 
 export default Pin;
 

@@ -15,7 +15,7 @@ const Start: React.FC<StartProps> = ({ onClick }) => {
   return (
     <div className={isVisible? 'transition-transform scale-100 duration-700 flex items-center justify-center rounded-lg bg-purple-600 hover:bg-purple-500 h-full w-full' : 'transform scale-[0] flex items-center justify-center rounded-lg bg-purple-600 hover:bg-purple-500 h-full w-full' }
     onClick={onClick} style={{ cursor: 'pointer' }}>
-        <p className='text-white text-sm text-center'>Start</p>
+        <p className='text-white text-base text-center'>Start</p>
     </div>
   );
 };
