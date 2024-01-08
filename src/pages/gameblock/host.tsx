@@ -95,8 +95,8 @@ const Quizzes_Host = () => {
           {/*Phase 1*/}
           {phase === 0 && (
             <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200">
-              <div className="font-bold text-4xl text-center h-full align-middle flex items-center">
-                {currentQuestion?.content}
+              <div className="font-bold text-4xl text-center h-full  align-middle flex items-center">
+                <div className="bg-white p-4">{currentQuestion?.content}</div>
               </div>
               <div className="self-end w-full h-auto mb-8">
                 <div className="col items-center justify-center">

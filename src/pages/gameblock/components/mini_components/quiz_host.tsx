@@ -4,6 +4,7 @@ import Svg1 from '/public/images/answers/triangle.svg';
 import Svg2 from '/public/images/answers/diamond.svg';
 import Svg3 from '/public/images/answers/circle.svg';
 import Svg4 from '/public/images/answers/square.svg';
+import IQuestion from '../../interface/iquestion';
 
 interface QuizData {
   content: string;

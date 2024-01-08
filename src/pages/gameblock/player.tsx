@@ -81,7 +81,7 @@ const Quizzes_Player = () => {
           {Phase === 0 && (
             <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200">
               <div className="font-bold text-4xl text-center h-full align-middle flex items-center">
-                {gameQuestion?.content}
+                <div className="bg-white p-4">{gameQuestion?.content}</div>
               </div>
               <div className="self-end w-full h-auto">
                 <div className="col items-center justify-center">
