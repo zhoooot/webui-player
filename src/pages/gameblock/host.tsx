@@ -7,9 +7,8 @@ import router from "next/router";
 import { Socket } from "socket.io-client";
 import { Host } from "@/logic/host";
 import { Router } from "next/router";
-import { extractQuestion, getNextQuestionIteration } from "./helper/host";
-import  IQuestion  from './interface/iquestion'; // Import the missing type
-
+import { extractQuestion, extractQuestionV2, getNextQuestionIteration } from "./helper/host";
+import IQuestion from "./interface/iquestion"; // Import the missing type
 
 const list: string | any[] = [
   { name: "a", score: 13 },
@@ -30,12 +29,13 @@ const list: string | any[] = [
   { name: "p", score: 163 },
 ];
 
-
 const Quizzes_Host = () => {
-
-  const [currentQuestion, setCurrentQuestion] = useState<IQuestion | null>(null);
+  const [currentQuestion, setCurrentQuestion] = useState<IQuestion | null>(
+    null
+  );
   const [phase, setPhase] = useState(0);
   const [socket, setSocket] = useState<Socket | null>(null);
+  const [haveQuestion, setHaveQuestion] = useState(false);
 
   useEffect(() => {
     const newSocket = Host.getHostClient().socketClient;
@@ -58,29 +58,41 @@ const Quizzes_Host = () => {
   }, []);
 
   useEffect(() => {
-    socket?.on("join", (message: any) => {
-      console.log("Join event received", message);
-    });
-    socket?.on("start", (message: any) => {
-      console.log("Start event received", message);
-    });
-    socket?.on("skipped", (message: any) => {
-      setPhase(getNextQuestionIteration(phase));
-    });
-    socket?.on("ranking", (message: any) => {
-      setPhase(3);
-    });
-    socket?.on("question", (message: any) => {
-      const question = extractQuestion(message);
-      setCurrentQuestion(question);
-    });
-    socket?.on("result", (message: any) => {
-      setPhase(2);
-    });
-    socket?.on("final-ranking", (message: any) => {
-      router.replace("/gameover");
-    });
+    if (socket) {
+      socket.on("join", (message: any) => {
+        console.log("Join event received", message);
+      });
+      socket.on("game-start", (message: any) => {
+        const { partyid, question } = message;
+        console.log("Start event received", message);
+        const data : IQuestion = extractQuestionV2(question);
+        console.log("The extracted questions are", data);
+        setCurrentQuestion(data);
+      });
+      socket.on("skipped", (message: any) => {
+        setPhase(getNextQuestionIteration(phase));
+      });
+      socket.on("ranking", (message: any) => {
+        setPhase(3);
+      });
+      socket.on("question", (message: any) => {
+        console.log("Question created");
+        const question : IQuestion = extractQuestionV2(message);
+        console.log("I received the question ...", question);
+        setCurrentQuestion(question);
+      });
+      socket.on("result", (message: any) => {
+        setPhase(2);
+      });
+      socket.on("final-ranking", (message: any) => {
+        router.replace("/gameover");
+      });
+    }
   });
+
+  useEffect(() => {
+    setHaveQuestion(currentQuestion !== null);
+  }, [currentQuestion]);
 
   // useEffect(() => {
   //   if (currentQuestion >= quizData.length) {
@@ -92,11 +104,14 @@ const Quizzes_Host = () => {
     <div>
       {
         <div>
+          {!haveQuestion && <></>}
           {/*Phase 1*/}
-          {phase === 0 && (
+          {haveQuestion && (phase === 0) && (
             <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200">
               <div className="font-bold text-4xl text-center h-full  align-middle flex items-center">
-                <div className="bg-white p-4">{currentQuestion?.content}</div>
+                <div className="bg-white p-4">
+                  {currentQuestion && currentQuestion.content}
+                </div>
               </div>
               <div className="self-end w-full h-auto mb-8">
                 <div className="col items-center justify-center">
@@ -115,9 +130,7 @@ const Quizzes_Host = () => {
           {phase === 1 && (
             <>
               <Phase2
-                onComplete={() => {
-
-                }}
+                onComplete={() => {}}
                 next={() => {
                   if (typeof window !== "undefined") {
                     socket?.emit("skip", {
@@ -126,7 +139,7 @@ const Quizzes_Host = () => {
                   }
                   // setPhase(2);
                 }}
-                duration={(currentQuestion?.time) ? currentQuestion.time : 0}
+                duration={currentQuestion?.time ? currentQuestion.time : 0}
                 quizData={currentQuestion}
               />
             </>
@@ -136,7 +149,12 @@ const Quizzes_Host = () => {
           {phase === 2 && (
             <div>
               <Phase3
-                next={() => {setPhase(3)}}
+                next={() => {
+                  socket?.emit("end", {
+                    room: localStorage.getItem("hostpin") as string,
+                  });
+                  setPhase(3);
+                }}
                 duration={5}
                 quizData={currentQuestion}
                 quizResult={[4, 3, 2, 5]}
@@ -150,11 +168,16 @@ const Quizzes_Host = () => {
               <Phase4
                 next={() => {
                   if (typeof window !== "undefined") {
-                    socket?.emit("question", {
+                    // socket?.emit("question", {
+                    //   room: localStorage.getItem("hostpin") as string,
+                    // });
+                    socket?.emit("game-start", {
                       room: localStorage.getItem("hostpin") as string,
                     });
+                    setCurrentQuestion(null);
+                    setHaveQuestion(false);
                   }
-                  // setPhase(0);
+                  setPhase(0);
                 }}
                 list={list}
               />

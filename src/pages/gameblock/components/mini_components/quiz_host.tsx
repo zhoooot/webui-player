@@ -44,7 +44,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData }) => {
           {content}
         </div>
           <ul className="grid grid-cols-2 answer-grid gap-2">
-            {options.map((option, index) => (
+            {options && options.map((option, index) => (
               <li
                 key={index}
                 style={{ cursor: 'pointer' }}
