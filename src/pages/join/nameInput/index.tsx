@@ -24,8 +24,7 @@ const InputNamePage: React.FC = () => {
     // push router
     // router.push("../choose_powerups");
     // router.push("../gameblock");
-    router.push("../get-ready");
-
+    router.push("../gameblock/player");
   };
 
   return (

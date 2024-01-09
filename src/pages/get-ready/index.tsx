@@ -8,30 +8,31 @@ import { Socket } from 'socket.io-client';
 
 const Home: React.FC = () => {
 
-  const [socket, setSocket] = React.useState<Socket | null>(null);
+  // const [socket, setSocket] = React.useState<Socket | null>(null);
 
-  useEffect(() => {
-    const newSocket = Player.getPlayerClient().socketClient;
-    if (newSocket) { newSocket.emit("join", {
-      room: localStorage.getItem("pin"),
-      username: localStorage.getItem("username"),
-    });}
+  // useEffect(() => {
+  //   const newSocket = Player.getPlayerClient().socketClient;
+  //   if (newSocket) { newSocket.emit("join", {
+  //     room: localStorage.getItem("pin"),
+  //     username: localStorage.getItem("username"),
+  //   });}
    
     
-    setSocket(newSocket);
-    return () => {
-      if (socket) socket.close();
-    };
-  }, []);
+  //   setSocket(newSocket);
+  //   return () => {
+  //     if (socket) socket.close();
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    socket?.on('start', (message: any) => {
-      router.replace('../gameblock/player')
-    });
-    socket?.on('kicked', (message: any) => {
-      router.replace('../join/pinInput')
-    });
-  })
+  // useEffect(() => {
+  //   // socket?.on('start', (message: any) => {
+  //   //   router.replace('../gameblock/player')
+  //   // });
+  //   socket?.on('kicked', (message: any) => {
+  //     router.replace('../join/pinInput')
+  //   });
+    
+  // })
 
   
   const name = localStorage.getItem("username") || "shut the fuk up";
