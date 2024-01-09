@@ -53,7 +53,11 @@ const Quizzes_Host = () => {
     setSocket(newSocket);
 
     return () => {
-      if (socket) socket.close();
+      if (socket) {
+        
+        // socket.emit("disconnect", localStorage.getItem("pin"));
+
+        socket.close()};
     };
   }, []);
 

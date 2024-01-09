@@ -28,9 +28,12 @@ const Home: React.FC = () => {
     socket?.on('start', (message: any) => {
       router.replace('../gameblock/player')
     });
+    socket?.on('kicked', (message: any) => {
+      router.replace('../join/pinInput')
+    });
   })
 
- 
+  
   const name = localStorage.getItem("username") || "shut the fuk up";
   return (
     <div className="mx-auto  w-screen h-screen bg-gray-100">

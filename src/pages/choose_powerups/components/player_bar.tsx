@@ -35,7 +35,10 @@ const PlayerBar: React.FC<PlayerProps> = ({ index, name }) => {
     const newSocket = Player.getPlayerClient().socketClient;
     setSocket(newSocket);
     return () => {
-      if (socket) socket.close();
+      if (socket) {
+        // socket.emit("disconnect", localStorage.getItem("pin"));
+        socket.close();}
+
     };
   }, []);
 
