@@ -1,0 +1,1 @@
+export const GAMEINFO_URL = process.env.GAMEINFO_URL || 'http://localhost:3000';
