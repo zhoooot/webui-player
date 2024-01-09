@@ -22,8 +22,9 @@ const InputNamePage: React.FC = () => {
     localStorage.setItem("username", name);
 
     // push router
-    router.push("../choose_powerups");
+    // router.push("../choose_powerups");
     // router.push("../gameblock");
+    router.push("../get-ready");
 
   };
 

@@ -88,7 +88,7 @@ const Quizzes_Player = () => {
                   <TimeBar
                     duration={5000}
                     onFinished={() => {
-                      setPhase(0.5);
+                      setPhase(1);
                       setSelection(0);
                     }}
                   />
