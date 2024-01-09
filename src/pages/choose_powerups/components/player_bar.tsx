@@ -16,19 +16,19 @@ const PlayerBar: React.FC<PlayerProps> = ({ index, name }) => {
     console.log("Button clicked");
 
     if (index == 0) {
-      const userResponse = window.confirm("You have not chosen any power-ups. Want to skip?")
+      const userResponse = window.confirm(
+        "You have not chosen any power-ups. Want to skip?"
+      );
       if (userResponse) {
         if (socket)
           socket.emit("join", {
             room: localStorage.getItem("pin"),
             username: localStorage.getItem("username"),
           });
-
-        router.push("../get-ready");
+          
+          router.push("../get-ready");
       }
     }
-
-
   };
 
   useEffect(() => {
@@ -60,7 +60,6 @@ const PlayerBar: React.FC<PlayerProps> = ({ index, name }) => {
           Play game!
         </button>
       </div>
-
     </div>
   );
 };
