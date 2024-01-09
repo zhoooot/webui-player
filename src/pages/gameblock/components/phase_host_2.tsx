@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {CountdownCircleTimer} from 'react-countdown-circle-timer';
 import Quiz from './mini_components/quiz_host';
 import Next from './mini_components/next_button';
+import IQuestion from '../interface/iquestion';
 
 interface QuizData {
   content: string;

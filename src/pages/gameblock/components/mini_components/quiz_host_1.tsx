@@ -7,6 +7,7 @@ import Svg4 from '/public/images/answers/square.svg';
 import QuizTypes from 'public/images/quiz_types.svg';
 import HostResult from './quiz_host_result';
 import Next from './next_button';
+import IQuestion from '../../interface/iquestion';
 
 interface QuizData {
     content: string;
@@ -58,7 +59,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, quizResult, next}) => {
                 <div className='mt-2 absolute left-0 bottom-0'>
                     <div className="w-screen p-2 rounded-lg quiz-container">
                         <ul className="grid grid-cols-2 answer-grid gap-2">
-                            {options.map((option, index) => {
+                            {options && options.map((option, index) => {
                                 const isCorrectAnswer = index === correct_ans;
                                 const opacity = isCorrectAnswer ? 1 : 0.25; // Adjust opacity as needed
                                 return (

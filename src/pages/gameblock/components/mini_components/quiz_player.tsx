@@ -40,7 +40,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
       <div className="w-screen p-2 rounded-lg flex flex-col quiz-container">
         <div className='text-center  text-2xl mb-4 self-center font-bold m-2 pl-4 pr-4 pt-2 pb-2 bg-white w-2/4 break-all'>Question: {content}</div>
         <ul className="grid grid-cols-2 answer-grid gap-2">
-          {options.map((option, index) => (
+          {options && options.map((option, index) => (
             <li
               key={index}
               onClick={() => handleAnswerClick(index)}
