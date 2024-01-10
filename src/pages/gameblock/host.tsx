@@ -110,99 +110,95 @@ const Quizzes_Host = () => {
   // }, [currentQuestion]);
 
   return (
-    <div>
-      {
-        <div>
-          {!haveQuestion && (
-            <div className="flex flex-col justify-center  items-center align-middle justify-items-center  h-full">
-              <div className="self-center">
-              <div className="text-3xl font-bold text-center self-center">
-                Loading...
-              </div>
-              <div className="loading loading-spinner loading-lg self-center"></div>
-              </div>
+    <div className="h-screen">
+      {!haveQuestion && (
+        <div className="flex flex-col justify-center  items-center align-middle justify-items-center h-full">
+          <div className="self-center">
+            <div className="text-3xl font-bold text-center self-center">
+              Loading...
             </div>
-          )}
-          {/*Phase 1*/}
-          {haveQuestion && phase === 0 && (
-            <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200">
-              <div className="font-bold text-4xl text-center h-full  align-middle flex items-center">
-                <div className="bg-white p-4">
-                  {currentQuestion && currentQuestion.content}
-                </div>
-              </div>
-              <div className="self-end w-full h-auto mb-8">
-                <div className="col items-center justify-center">
-                  <TimeBar
-                    duration={5000}
-                    onFinished={() => {
-                      setPhase(1);
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/*Phase 2*/}
-          {phase === 1 && (
-            <>
-              <Phase2
-                onComplete={() => {}}
-                next={() => {
-                  if (typeof window !== "undefined") {
-                    socket?.emit("skip", {
-                      room: localStorage.getItem("hostpin") as string,
-                    });
-                  }
-                  // setPhase(2);
-                }}
-                duration={currentQuestion?.time ? currentQuestion.time : 0}
-                quizData={currentQuestion}
-              />
-            </>
-          )}
-
-          {/*Phase 3*/}
-          {phase === 2 && (
-            <div>
-              <Phase3
-                next={() => {
-                  socket?.emit("end", {
-                    room: localStorage.getItem("hostpin") as string,
-                  });
-                  setPhase(3);
-                }}
-                duration={5}
-                quizData={currentQuestion}
-                quizResult={[4, 3, 2, 5]}
-              />
-            </div>
-          )}
-
-          {/*Phase 4*/}
-          {phase === 3 && (
-            <div>
-              <Phase4
-                next={() => {
-                  if (typeof window !== "undefined") {
-                    // socket?.emit("question", {
-                    //   room: localStorage.getItem("hostpin") as string,
-                    // });
-                    socket?.emit("game-start", {
-                      room: localStorage.getItem("hostpin") as string,
-                    });
-                    setCurrentQuestion(null);
-                    setHaveQuestion(false);
-                  }
-                  setPhase(0);
-                }}
-                list={list}
-              />
-            </div>
-          )}
+            <div className="loading loading-spinner loading-lg justify-center self-center"></div>
+          </div>
         </div>
-      }
+      )}
+      {/*Phase 1*/}
+      {haveQuestion && phase === 0 && (
+        <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200">
+          <div className="font-bold text-4xl text-center h-full  align-middle flex items-center">
+            <div className="bg-white p-4">
+              {currentQuestion && currentQuestion.content}
+            </div>
+          </div>
+          <div className="self-end w-full h-auto mb-8">
+            <div className="col items-center justify-center">
+              <TimeBar
+                duration={5000}
+                onFinished={() => {
+                  setPhase(1);
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/*Phase 2*/}
+      {phase === 1 && (
+        <>
+          <Phase2
+            onComplete={() => {}}
+            next={() => {
+              if (typeof window !== "undefined") {
+                socket?.emit("skip", {
+                  room: localStorage.getItem("hostpin") as string,
+                });
+              }
+              // setPhase(2);
+            }}
+            duration={currentQuestion?.time ? currentQuestion.time : 0}
+            quizData={currentQuestion}
+          />
+        </>
+      )}
+
+      {/*Phase 3*/}
+      {phase === 2 && (
+        <div>
+          <Phase3
+            next={() => {
+              socket?.emit("end", {
+                room: localStorage.getItem("hostpin") as string,
+              });
+              setPhase(3);
+            }}
+            duration={5}
+            quizData={currentQuestion}
+            quizResult={[4, 3, 2, 5]}
+          />
+        </div>
+      )}
+
+      {/*Phase 4*/}
+      {phase === 3 && (
+        <div>
+          <Phase4
+            next={() => {
+              if (typeof window !== "undefined") {
+                // socket?.emit("question", {
+                //   room: localStorage.getItem("hostpin") as string,
+                // });
+                socket?.emit("game-start", {
+                  room: localStorage.getItem("hostpin") as string,
+                });
+                setCurrentQuestion(null);
+                setHaveQuestion(false);
+              }
+              setPhase(0);
+            }}
+            list={list}
+          />
+        </div>
+      )}
     </div>
   );
 };
