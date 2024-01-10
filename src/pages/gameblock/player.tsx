@@ -202,7 +202,7 @@ const Quizzes_Player = () => {
                   console.log("time up");
                   setTimeUp(true);
 
-                  setPhase(2);
+                  // setPhase(2);
                 }}
               >
                 {({ remainingTime }) => remainingTime}

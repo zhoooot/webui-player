@@ -29,7 +29,6 @@ const Answer: React.FC<AnswerProps> = ({ correctAnswer, isCorrect, plusPoint, po
             <b className="text-xl mb-4">Incorrect</b>
             <Image src="/icons/Incorrect.png" width={50} height={50} alt="Icon" />
             <div className="bg-gray-500 text-white text-center p-2 mt-4 w-full">Great Try!</div>
-            (powerUp && <div className="bg-gray-500 text-white text-center p-2 mt-4 w-full">You have been affected by {powerUp} Power Up</div>)
 
             <div className='absolute bottom-0 left-0'>
               <PlayerBar name={name} point={0} />
