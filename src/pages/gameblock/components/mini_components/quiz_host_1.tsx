@@ -50,7 +50,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, quizResult, next}) => {
                 <div className='mt-5'>
                     <div className='flex flex-col self-center items-center h-full justify-center'>
                         <div className='font-bold text-2xl text-center p-4 align-middle flex items-center bg-white w-2/4 break-all'>
-                            fjakskekttfdddddddddddddddddddddddddddddddddfdsssssssssssssssssss
+                            {content}
                         </div>
                     </div>
                 </div>
