@@ -113,7 +113,7 @@ const Quizzes_Host = () => {
     <div className="h-screen">
       {!haveQuestion && (
        <div className="flex flex-col justify-center items-center h-full">
-       <div className="text-3xl text-black font-bold">Loading...</div>
+       <div className="text-3xl text-black font-bold mb-2">Loading...</div>
        <div className="loading loading-lg loading-spinner">fuk up</div>
      </div>
       )}
