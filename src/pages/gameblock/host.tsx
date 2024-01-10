@@ -112,14 +112,10 @@ const Quizzes_Host = () => {
   return (
     <div className="h-screen">
       {!haveQuestion && (
-        <div className="flex flex-col justify-center  items-center align-middle justify-items-center h-full">
-          <div className="self-center">
-            <div className="text-3xl font-bold text-center self-center">
-              Loading...
-            </div>
-            <div className="loading loading-spinner loading-lg justify-center self-center"></div>
-          </div>
-        </div>
+       <div className="flex flex-col justify-center items-center h-full">
+       <div className="text-3xl text-black font-bold">Loading...</div>
+       <div className="loading loading-lg loading-spinner">fuk up</div>
+     </div>
       )}
       {/*Phase 1*/}
       {haveQuestion && phase === 0 && (
