@@ -116,6 +116,22 @@ import IQuestion from "../interface/iquestion";
 }
 */
 
+export const extractQuestionV3 = (data: any): IQuestion => {
+  const { answers, content, correct_answer, allow_power, time } = data;
+  let answers_list: string[] = [];
+  for (let i = 0; i < answers.length; i++) {
+    let answer = answers[i].content;
+    answers_list.push(answer);
+  }
+  return {
+    content: content,
+    options: answers_list,
+    correct_ans: correct_answer,
+    time: time,
+    allow_power: allow_power,
+  };
+}
+
 export const extractQuestionV2 = (data: any): IQuestion => {
   const { answers, content, correctAnswer, permit, time } = data;
   let answers_list: string[] = [];

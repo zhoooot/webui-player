@@ -7,7 +7,12 @@ import router from "next/router";
 import { Socket } from "socket.io-client";
 import { Host } from "@/logic/host";
 import { Router } from "next/router";
-import { extractQuestion, extractQuestionV2, getNextQuestionIteration } from "./helper/host";
+import {
+  extractQuestion,
+  extractQuestionV2,
+  extractQuestionV3,
+  getNextQuestionIteration,
+} from "./helper/host";
 import IQuestion from "./interface/iquestion"; // Import the missing type
 
 const list: string | any[] = [
@@ -54,10 +59,10 @@ const Quizzes_Host = () => {
 
     return () => {
       if (socket) {
-        
         // socket.emit("disconnect", localStorage.getItem("pin"));
 
-        socket.close()};
+        socket.close();
+      }
     };
   }, []);
 
@@ -69,7 +74,7 @@ const Quizzes_Host = () => {
       socket.on("game-start", (message: any) => {
         const { partyid, question } = message;
         console.log("Start event received", message);
-        const data : IQuestion = extractQuestionV2(question);
+        const data: IQuestion = extractQuestionV3(question);
         console.log("The extracted questions are", data);
         setCurrentQuestion(data);
       });
@@ -81,7 +86,7 @@ const Quizzes_Host = () => {
       });
       socket.on("question", (message: any) => {
         console.log("Question created");
-        const question : IQuestion = extractQuestionV2(message);
+        const question: IQuestion = extractQuestionV3(message);
         console.log("I received the question ...", question);
         setCurrentQuestion(question);
       });
@@ -108,9 +113,18 @@ const Quizzes_Host = () => {
     <div>
       {
         <div>
-          {!haveQuestion && <></>}
+          {!haveQuestion && (
+            <div className="flex flex-col justify-center  items-center align-middle justify-items-center  h-full">
+              <div className="self-center">
+              <div className="text-3xl font-bold text-center self-center">
+                Loading...
+              </div>
+              <div className="loading loading-spinner loading-lg self-center"></div>
+              </div>
+            </div>
+          )}
           {/*Phase 1*/}
-          {haveQuestion && (phase === 0) && (
+          {haveQuestion && phase === 0 && (
             <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200">
               <div className="font-bold text-4xl text-center h-full  align-middle flex items-center">
                 <div className="bg-white p-4">

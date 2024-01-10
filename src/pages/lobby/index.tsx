@@ -20,9 +20,9 @@ import GetReadyHostPage from "../get-ready-host";
 let first_question = {
   content: "",
   answers: [""],
-  correctAnswer: 0,
+  correct_answer: 0,
   time: 0,
-  permit: false,
+  allow_power: false,
 };
 
 const players = ["name", "name"];
@@ -103,17 +103,12 @@ const Lobby = () => {
       console.log(message);
       console.log(message.question.answers);
       try {
-        let answers_list: string[] = [];
-        for (let i = 0; i < message.question.answers.length; i++) {
-          let answer = message.question.answers[i].content;
-          answers_list.push(answer);
-        }
         first_question = {
           content: message.question.content,
-          answers: answers_list,
-          correctAnswer: message.question.correct_answer,
+          answers: message.question.answers,
+          correct_answer: message.question.correct_answer,
           time: message.question.time,
-          permit: message.question.allow_power,
+          allow_power: message.question.allow_power,
         };
         console.log("Host event received", first_question);
         setHasData(true);
@@ -165,7 +160,7 @@ const Lobby = () => {
       {hasData && (
         <>
           <div className="flex flex-row">
-            <audio autoPlay loop src={audioSrc} />;
+            <audio autoPlay loop src={audioSrc} />
             <div
               className="flex grow flex-col h-screen justify-start items-center"
               style={
