@@ -10,16 +10,17 @@ import IQuestion from '../../interface/iquestion';
 interface QuizProps {
   quizData: IQuestion | null;
   onAnswerSelect: (selectedAnswer: number | null) => void;
+  point: number;
 }
 const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500']
 
-const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
+const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect, point}) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
   // Array of SVGs
   const svgs = [Svg1, Svg2, Svg3, Svg4];
   const name=localStorage.getItem("username") || "shut the fuk up";
-
+  
   // Check if quizData is defined before destructuring its properties
   if (!quizData) {
     return <div>Oops! There&apos; nothing in here</div>;
@@ -30,7 +31,8 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
   const handleAnswerClick = (index: number) => {
     setSelectedAnswer(index);
     onAnswerSelect(index);
-    
+    //isChosen(true);
+    console.log(index);
   };
   
   return (
@@ -57,7 +59,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onAnswerSelect }) => {
         
       </div>
       <div className='bg-white'>
-        <PlayerBar name={name} point={2222} />
+        <PlayerBar name={name} point={point} />
       </div>
       </div>
     </div>

@@ -6,7 +6,13 @@ import router from "next/router";
 import { ClientPlayer } from '@/logic/client-player';
 import { Socket } from 'socket.io-client';
 
-const Home: React.FC = () => {
+interface ReadyProps{
+  point: number;
+  index: number;
+}
+
+
+const Home: React.FC<ReadyProps> = ({point, index}) => {
 
   // const [socket, setSocket] = React.useState<Socket | null>(null);
 
@@ -38,7 +44,7 @@ const Home: React.FC = () => {
   const name = localStorage.getItem("username") || "shut the fuk up";
   return (
     <div className="mx-auto  w-screen h-screen bg-gray-100">
-      <Loading name={name} point={2222} index={1} />
+      <Loading name={name} point={point} index={index} />
     </div>
   );
 };

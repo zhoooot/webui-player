@@ -5,11 +5,12 @@ import PlayerBar from './playerbar';
 interface AnswerProps {
   correctAnswer: number; // Assuming correctAnswer is a number
   isCorrect: boolean;
-  plusPoint: number;
+  point: number;
   powerUp?: number;
+  plusPoint: number;
 }
 
-const Answer: React.FC<AnswerProps> = ({ correctAnswer, isCorrect, plusPoint, powerUp }) => {
+const Answer: React.FC<AnswerProps> = ({ correctAnswer, isCorrect, point, powerUp, plusPoint }) => {
   const name=localStorage.getItem("username") || "shut the fuk up";
   return (
     <div>
@@ -20,7 +21,7 @@ const Answer: React.FC<AnswerProps> = ({ correctAnswer, isCorrect, plusPoint, po
             <Image src="/icons/Correct.png" width={50} height={50} alt="Icon" />
             <div className="bg-gray-500 text-white text-center w-full p-2 mt-4">+ {plusPoint}</div>
             <div className='absolute bottom-0 left-0'>
-              <PlayerBar name={name} point={0} />
+              <PlayerBar name={name} point={point} />
 
             </div>
           </div>
@@ -31,7 +32,7 @@ const Answer: React.FC<AnswerProps> = ({ correctAnswer, isCorrect, plusPoint, po
             <div className="bg-gray-500 text-white text-center p-2 mt-4 w-full">Great Try!</div>
 
             <div className='absolute bottom-0 left-0'>
-              <PlayerBar name={name} point={0} />
+              <PlayerBar name={name} point={point} />
             </div>          </div>
         )}
       </body>

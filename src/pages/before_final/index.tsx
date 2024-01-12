@@ -7,7 +7,7 @@ interface RankUserProps {
 
 }
 const RankUser: React.FC<RankUserProps> = ({points}) => {
-  
+  const name=localStorage.getItem("username") || "shut the fuk up";
   return (
     //add background image
 
@@ -26,7 +26,7 @@ const RankUser: React.FC<RankUserProps> = ({points}) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1, delay: 0.5}} 
-      >shut the fuk up</motion.div>
+      >{name}</motion.div>
       <motion.div className="flex justify-center items-center flex-col"
        initial={{ opacity: 0 }}
        animate={{ opacity: 1 }}
@@ -43,7 +43,7 @@ const RankUser: React.FC<RankUserProps> = ({points}) => {
       <motion.div className="font-bold text-xl self-center text-white drop-shadow-[2px_2px_var(--tw-shadow-color)] shadow-black mt-4 mb-2"
        initial={{ opacity: 0 }}
        animate={{ opacity: 1 }}
-       transition={{ duration: 1, delay: 1.5}} >0 points</motion.div>
+       transition={{ duration: 1, delay: 1.5}} >{points} points</motion.div>
       <motion.div className="font-bold text-2xl self-center text-white drop-shadow-[2px_2px_var(--tw-shadow-color)] shadow-black "
        initial={{ opacity: 0 }}
        animate={{ opacity: 1 }}

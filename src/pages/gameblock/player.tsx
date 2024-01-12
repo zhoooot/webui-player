@@ -9,11 +9,13 @@ import router from "next/router";
 import { Host } from "@/logic/host";
 import { Socket } from "socket.io-client";
 import { Player } from "@/logic/player";
-import { extractQuestion, extractQuestionV2, getNextQuestionIteration } from "./helper/host";
+import { extractQuestion, extractQuestionV2, extractQuestionV3, getNextQuestionIteration } from "./helper/host";
 import IQuestion from "./interface/iquestion";
 import ChoosePowerUp from "./components/choose_powerup";
 import RankUser from "../before_final";
 import Home from "../get-ready";
+import { animate } from "framer-motion";
+import { plugin } from "postcss";
 const quiz = {
   content: "What is the capital of Thailand?",
   options: ["Bangkok", "Hanoi", "Jakarta", "Manila"],
@@ -36,11 +38,32 @@ const Quizzes_Player = () => {
   const [result, setResult] = useState(false);
   const [point, setPoint] = useState(0);
   const [haveQuestion, setHaveQuestion] = useState(false);
+  const [plusPoint, setPlusPoint] = useState(0);
+  const [isChoose, setIsChoose] = useState(false);
+const [isReceiveResult,setIsReceiveResult]=useState(false);
   const handleAnswerSelect = (selectedAnswer: number | null) => {
-    setSelection(selectedAnswer as number);
+    // setSelection(1);
+    if (gameQuestion) {
+      socket?.emit("select-answer", {
+        room: localStorage.getItem("pin"),
+        username: localStorage.getItem("username"),
+        answer: (selectedAnswer) ? selectedAnswer+1 : -1,
+        correct_answer: gameQuestion?.correct_ans +1,
+        point: 1000,
+      })
+      console.log( {
+        room: localStorage.getItem("pin"),
+        name: localStorage.getItem("username"),
+        answer: selectedAnswer || -1,
+        correct_answer: gameQuestion?.correct_ans +
+        1,
+        point: 1000,
+      })
+      setPhase(2.5);
+    }
   };
   const name =
-    // localStorage.getItem("username") ||
+    localStorage.getItem("username") ||
     "shut the fuk up";
 
   useEffect(() => {
@@ -48,6 +71,8 @@ const Quizzes_Player = () => {
       setTimerKey((prevKey) => prevKey + 1); // Change the timer key to reset the timer
     }
   }, [Phase]);
+
+
 
   useEffect(() => {
     const newSocket = Player.getPlayerClient().socketClient;
@@ -92,20 +117,28 @@ const Quizzes_Player = () => {
 
 
 
-    socket?.on("result", (message: any) => {
+    socket?.on("receive-result", (message: any) => {
+      
       setPhase(2);
-    });
+      
+      const {plus_point,total_point,is_correct}=message;
+      setPlusPoint(plus_point);
+      setPoint(total_point);
+      setResult(is_correct);
+      // setIsReceiveResult(true);
+      console.log("receive result");
+    
+  
+  });
     socket?.on("final-ranking", (message: any) => {
-      //TODO
+      setPhase(4);
     });
 
   });
   // socket?.on("ranking", (message: any) => {
   //   setPhase(3);
   // });
-  socket?.on("result", (message: any) => {
-    setPhase(2);
-  });
+  
   socket?.on("skipped", (message: any) => {
     switch (Phase) {
       case 0:
@@ -113,38 +146,53 @@ const Quizzes_Player = () => {
         break;
       case 1:
         setPhase(2);
+        handleAnswerSelect(null);
         break;
       case 2:
         setPhase(0);
         // setHaveQuestion(false);
         break;
+    
     }
   });
   socket?.on("game-start", (message: any) => {
     const { partyid, question } = message;
     console.log("Start event received", message);
-    const data: IQuestion = extractQuestionV2(question);
+    const data: IQuestion = extractQuestionV3(question);
     console.log("The extracted questions are", data);
     setPhase(0);
     setGameQuestion(data);
     setHaveQuestion(true);
-
+    setPlusPoint(0);
+    // setIsReceiveResult(false);
   }
+
   );
 
-  useEffect(() => {
+  // socket?.on("result-released", (message: any) => {
+  //     if (Phase !=2 && isReceiveResult==false)  
+  //   { 
+  //     setPhase(2);
+  //     setPlusPoint(0);
+  //     setResult(false);
+      
+      
+  //   }
+  //   }); 
+     useEffect(() => {
     setRemainingTime(gameQuestion?.time as number);
     setCurrentQuestion(currentQuestion + 1);
   }, [gameQuestion]);
   console.log(selection);
   console.log(timeUp);
 
+ 
   // console.log(Phase);
   return (
     <div>
       <div>
         {/*Phase 1*/}
-        {!haveQuestion && <Home></Home>}
+        {!haveQuestion && <Home point={point} index={currentQuestion}></Home>}
 
         {haveQuestion && Phase === 0 && (
           <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200">
@@ -158,9 +206,10 @@ const Quizzes_Player = () => {
                   onFinished={() => {
                     setPhase(1);
                     setSelection(0);
+                    setIsChoose(false);
                   }}
                 />
-                <PlayerBar point={2222} name={name} />
+                <PlayerBar point={point} name={name} />
               </div>
             </div>
           </div>
@@ -201,29 +250,31 @@ const Quizzes_Player = () => {
                 onComplete={() => {
                   console.log("time up");
                   setTimeUp(true);
-
+                  handleAnswerSelect(null);
                   // setPhase(2);
                 }}
               >
-                {({ remainingTime }) => remainingTime}
+                {({ remainingTime }) =>  remainingTime}
               </CountdownCircleTimer>
             </div>
 
-            {(selection && !timeUp) ? (
-              <Loading
-                point={2222}
-                name={name}
-                index={currentQuestion + 1}
-              />
-            ) : (
-              <Quiz
+            <Quiz
                 quizData={gameQuestion}
-                onAnswerSelect={handleAnswerSelect}
+                onAnswerSelect={handleAnswerSelect} 
+                point={point}
               />
-            )}
           </>
         )}
+        {Phase ===2.5 && (
+          <div>
+             <Loading
+                point={point}
+                name={name}
+                index={currentQuestion + 1}
+              /></div> 
+        )  
 
+        }
         {/*Phase 3*/}
         {Phase === 2 && (
           <div>
@@ -231,7 +282,10 @@ const Quizzes_Player = () => {
             <Answer
               correctAnswer={(gameQuestion?.correct_ans) as number}
               isCorrect={result}
-              plusPoint={point}
+              plusPoint={plusPoint}
+
+              point={point}
+
             />
           </div>
         )}
