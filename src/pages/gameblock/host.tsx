@@ -8,6 +8,7 @@ import { Socket } from "socket.io-client";
 import { Host } from "@/logic/host";
 import { Router } from "next/router";
 import {
+  extractCategorization,
   extractQuestion,
   extractQuestionV2,
   extractQuestionV3,
@@ -15,24 +16,13 @@ import {
 } from "./helper/host";
 import IQuestion from "./interface/iquestion"; // Import the missing type
 
-const list: string | any[] = [
-  { name: "a", score: 13 },
-  { name: "b", score: 12 },
-  { name: "c", score: 35 },
-  { name: "d", score: 42 },
-  { name: "e", score: 5 },
-  { name: "f", score: 63 },
-  { name: "g", score: 7 },
-  { name: "h", score: 28 },
-  { name: "i", score: 9 },
-  { name: "j", score: 10 },
-  { name: "k", score: 113 },
-  { name: "l", score: 192 },
-  { name: "m", score: 137 },
-  { name: "n", score: 144 },
-  { name: "o", score: 115 },
-  { name: "p", score: 163 },
-];
+// const list: string | any[] = [
+//   { name: "What name is it?", score: 13 },
+//   { name: "What name is it?", score: 12 },
+//   { name: "What name is it?", score: 35 },
+//   { name: "What name is it?", score: 42 },
+//   { name: "What name is it?", score: 5 },
+// ];
 
 const Quizzes_Host = () => {
   const [currentQuestion, setCurrentQuestion] = useState<IQuestion | null>(
@@ -41,6 +31,13 @@ const Quizzes_Host = () => {
   const [phase, setPhase] = useState(0);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [haveQuestion, setHaveQuestion] = useState(false);
+  const [categorization, setCategorization] = useState<number[]>([
+    -1, -1, -1, -1,
+  ]);
+  const [haveCategorization, setHaveCategorization] = useState(false);
+  const [topFiveList, setTopFiveList] = useState([]);
+  const [receiveFinalRanking, setReceiveFinalRanking] = useState(false);
+  const [finalRanking, setFinalRanking] = useState([]);
 
   useEffect(() => {
     const newSocket = Host.getHostClient().socketClient;
@@ -77,11 +74,14 @@ const Quizzes_Host = () => {
         const data: IQuestion = extractQuestionV3(question);
         console.log("The extracted questions are", data);
         setCurrentQuestion(data);
+        setHaveCategorization(false);
       });
       socket.on("skipped", (message: any) => {
         setPhase(getNextQuestionIteration(phase));
       });
       socket.on("ranking", (message: any) => {
+        const { ranking } = message;
+        setTopFiveList(ranking);
         setPhase(3);
       });
       socket.on("question", (message: any) => {
@@ -91,10 +91,14 @@ const Quizzes_Host = () => {
         setCurrentQuestion(question);
       });
       socket.on("result", (message: any) => {
-        setPhase(2);
+        const categorization = extractCategorization(message);
+        setCategorization(categorization);
+        setHaveCategorization(true);
       });
       socket.on("final-ranking", (message: any) => {
-        router.replace("/gameover");
+        setReceiveFinalRanking(true);
+        const { ranking } = message;
+        setFinalRanking(ranking);
       });
     }
   });
@@ -102,6 +106,29 @@ const Quizzes_Host = () => {
   useEffect(() => {
     setHaveQuestion(currentQuestion !== null);
   }, [currentQuestion]);
+
+  useEffect(() => {
+    if (haveCategorization) {
+      setPhase(2);
+    }
+  }, [haveCategorization]);
+
+  useEffect(() => {
+    if (phase == 2) {
+      socket?.emit("result", {
+        room: localStorage.getItem("hostpin") as string,
+      });
+    }
+  }, [phase, socket]);
+
+  useEffect(() => {
+    if (receiveFinalRanking && finalRanking.length > 0) {
+      router.replace({
+        pathname: "/gameover",
+        query: { finalRanking: finalRanking },
+      });
+    }
+  }, [finalRanking, receiveFinalRanking]);
 
   // useEffect(() => {
   //   if (currentQuestion >= quizData.length) {
@@ -162,14 +189,14 @@ const Quizzes_Host = () => {
         <div>
           <Phase3
             next={() => {
-              socket?.emit("end", {
+              socket?.emit("question-end", {
                 room: localStorage.getItem("hostpin") as string,
               });
               setPhase(3);
             }}
             duration={5}
             quizData={currentQuestion}
-            quizResult={[4, 3, 2, 5]}
+            quizResult={categorization}
           />
         </div>
       )}
@@ -191,7 +218,7 @@ const Quizzes_Host = () => {
               }
               setPhase(0);
             }}
-            list={list}
+            list={topFiveList}
           />
         </div>
       )}

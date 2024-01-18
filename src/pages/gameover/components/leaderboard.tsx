@@ -37,7 +37,6 @@ const ChampionshipItem: React.FC<ChampionshipItemProps> = ({
       <div style={{ zIndex: position === 0 ? 1 : 0 }} className={`flex-col flex w-44 h-full items-center  pt-4 bg-gray-300 rounded-t-lg ${position === 0 ? 'shadow-lg shadow-black' : ''}`}>
         <Image src={imageUrls[position]} alt='leaderboard' className='object-scale-down h-24 w-24' />
         <div className='mt-2 flex-none text-lg font-bold text-center'>{score}</div>
-        <div className='flex-none text-base font-bold text-center'>{correct} out of {questions}</div>
       </div>
     </div>
   );

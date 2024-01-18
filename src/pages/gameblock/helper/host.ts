@@ -116,6 +116,16 @@ import IQuestion from "../interface/iquestion";
 }
 */
 
+export const extractCategorization = (data: any): number[] => {
+    const { option1, option2, option3, option4 } = data;
+    let categorization_list: number[] = [];
+    categorization_list.push(option1);
+    categorization_list.push(option2);
+    categorization_list.push(option3);
+    categorization_list.push(option4);
+    return categorization_list;
+}
+
 export const extractQuestionV3 = (data: any): IQuestion => {
   const { answers, content, correct_answer, allow_power, time } = data;
   let answers_list: string[] = [];

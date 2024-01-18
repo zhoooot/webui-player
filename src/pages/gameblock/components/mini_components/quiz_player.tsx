@@ -7,6 +7,7 @@ import Svg3 from '/public/images/answers/circle.svg';
 import Svg4 from '/public/images/answers/square.svg';
 import QuizTypes from 'public/images/quiz_types.svg';
 import IQuestion from '../../interface/iquestion';
+import { ACTION_URL } from '@/config';
 interface QuizProps {
   quizData: IQuestion | null;
   onAnswerSelect: (selectedAnswer: number | null) => void;
